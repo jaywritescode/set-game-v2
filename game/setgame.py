@@ -2,8 +2,8 @@ from itertools import product, combinations
 from more_itertools import all_equal, all_unique
 import random
 
-from attributes import Number, Color, Shading, Shape
-from card import Card
+from .attributes import Number, Color, Shading, Shape
+from .card import Card
 
 
 class Game:

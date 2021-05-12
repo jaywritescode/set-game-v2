@@ -1,12 +1,15 @@
 from collections import namedtuple
 
-from attributes import Number, Color, Shading, Shape
+from .attributes import Number, Color, Shading, Shape
 
 
 class Card(namedtuple('Card', ['number', 'color', 'shading', 'shape'])):
 
     def to_vector(self):
         return [field.value for field in self]
+
+    def to_dict(self):
+        return {key: value.name for key, value in self._asdict().items()}
 
     def product(self, other):
         attrs = [2 * sum(attr) % 3 for attr in zip(self.to_vector(), other.to_vector())]
