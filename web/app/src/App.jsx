@@ -1,39 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './spritesheet.css';
 
 function App() {
-  // Create the count state.
-  const [count, setCount] = useState(0);
-  // Create the counter (+1 every second).
-  useEffect(() => {
-    const timer = setTimeout(() => setCount(count + 1), 1000);
-    return () => clearTimeout(timer);
-  }, [count, setCount]);
-  // Return the App component.
+  const [board, setBoard] = useState([{"number":"ONE","color":"BLUE","shading":"EMPTY","shape":"DIAMOND"},{"number":"TWO","color":"GREEN","shading":"STRIPED","shape":"SQUIGGLE"},{"number":"THREE","color":"BLUE","shading":"SOLID","shape":"OVAL"},{"number":"TWO","color":"RED","shading":"SOLID","shape":"DIAMOND"},{"number":"ONE","color":"BLUE","shading":"EMPTY","shape":"OVAL"},{"number":"ONE","color":"GREEN","shading":"EMPTY","shape":"DIAMOND"},{"number":"ONE","color":"GREEN","shading":"EMPTY","shape":"SQUIGGLE"},{"number":"THREE","color":"BLUE","shading":"STRIPED","shape":"OVAL"},{"number":"TWO","color":"BLUE","shading":"EMPTY","shape":"DIAMOND"},{"number":"ONE","color":"RED","shading":"STRIPED","shape":"DIAMOND"},{"number":"THREE","color":"GREEN","shading":"SOLID","shape":"DIAMOND"},{"number":"THREE","color":"RED","shading":"STRIPED","shape":"OVAL"}])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.jsx</code> and save to reload.
-        </p>
-        <p>
-          Page has been open for <code>{count}</code> seconds.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
-    </div>
+    <>
+      {board.map(Card)}
+    </>
   );
+}
+
+function Card({number, color, shading, shape}) {
+
+  const spriteName = [number, color, shading, shape]
+    .map(x => x.toLowerCase())
+    .join('-') + (number == 'ONE' ? '' : 's'); 
+
+  return (
+    <div className={`card -${spriteName}`} key={spriteName} />
+  )
 }
 
 export default App;
