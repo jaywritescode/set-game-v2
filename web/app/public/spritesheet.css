@@ -1,0 +1,491 @@
+.card {
+    background-image: url(spritesheet.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.-one-blue-empty-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -1px -1px;
+}
+
+.-one-blue-empty-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -243px -1px;
+}
+
+.-one-blue-empty-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -485px -1px;
+}
+
+.-one-blue-solid-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -727px -1px;
+}
+
+.-one-blue-solid-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -969px -1px;
+}
+
+.-one-blue-solid-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -1211px -1px;
+}
+
+.-one-blue-striped-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -1453px -1px;
+}
+
+.-one-blue-striped-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -1695px -1px;
+}
+
+.-one-blue-striped-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -1937px -1px;
+}
+
+.-one-green-empty-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -2179px -1px;
+}
+
+.-one-green-empty-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -2421px -1px;
+}
+
+.-one-green-empty-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -2663px -1px;
+}
+
+.-one-green-solid-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -2905px -1px;
+}
+
+.-one-green-solid-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -3147px -1px;
+}
+
+.-one-green-solid-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -3389px -1px;
+}
+
+.-one-green-striped-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -3631px -1px;
+}
+
+.-one-green-striped-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -3873px -1px;
+}
+
+.-one-green-striped-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -4115px -1px;
+}
+
+.-one-red-empty-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -4357px -1px;
+}
+
+.-one-red-empty-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -4599px -1px;
+}
+
+.-one-red-empty-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -4841px -1px;
+}
+
+.-one-red-solid-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -5083px -1px;
+}
+
+.-one-red-solid-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -5325px -1px;
+}
+
+.-one-red-solid-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -5567px -1px;
+}
+
+.-one-red-striped-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -5809px -1px;
+}
+
+.-one-red-striped-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -6051px -1px;
+}
+
+.-one-red-striped-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -6293px -1px;
+}
+
+.-three-blue-empty-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -6535px -1px;
+}
+
+.-three-blue-empty-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -6777px -1px;
+}
+
+.-three-blue-empty-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -7019px -1px;
+}
+
+.-three-blue-solid-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -7261px -1px;
+}
+
+.-three-blue-solid-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -7503px -1px;
+}
+
+.-three-blue-solid-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -7745px -1px;
+}
+
+.-three-blue-striped-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -7987px -1px;
+}
+
+.-three-blue-striped-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -8229px -1px;
+}
+
+.-three-blue-striped-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -8471px -1px;
+}
+
+.-three-green-empty-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -8713px -1px;
+}
+
+.-three-green-empty-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -8955px -1px;
+}
+
+.-three-green-empty-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -9197px -1px;
+}
+
+.-three-green-solid-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -9439px -1px;
+}
+
+.-three-green-solid-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -9681px -1px;
+}
+
+.-three-green-solid-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -9923px -1px;
+}
+
+.-three-green-striped-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -10165px -1px;
+}
+
+.-three-green-striped-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -10407px -1px;
+}
+
+.-three-green-striped-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -10649px -1px;
+}
+
+.-three-red-empty-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -10891px -1px;
+}
+
+.-three-red-empty-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -11133px -1px;
+}
+
+.-three-red-empty-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -11375px -1px;
+}
+
+.-three-red-solid-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -11617px -1px;
+}
+
+.-three-red-solid-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -11859px -1px;
+}
+
+.-three-red-solid-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -12101px -1px;
+}
+
+.-three-red-striped-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -12343px -1px;
+}
+
+.-three-red-striped-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -12585px -1px;
+}
+
+.-three-red-striped-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -12827px -1px;
+}
+
+.-two-blue-empty-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -13069px -1px;
+}
+
+.-two-blue-empty-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -13311px -1px;
+}
+
+.-two-blue-empty-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -13553px -1px;
+}
+
+.-two-blue-solid-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -13795px -1px;
+}
+
+.-two-blue-solid-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -14037px -1px;
+}
+
+.-two-blue-solid-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -14279px -1px;
+}
+
+.-two-blue-striped-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -14521px -1px;
+}
+
+.-two-blue-striped-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -14763px -1px;
+}
+
+.-two-blue-striped-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -15005px -1px;
+}
+
+.-two-green-empty-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -15247px -1px;
+}
+
+.-two-green-empty-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -15489px -1px;
+}
+
+.-two-green-empty-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -15731px -1px;
+}
+
+.-two-green-solid-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -15973px -1px;
+}
+
+.-two-green-solid-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -16215px -1px;
+}
+
+.-two-green-solid-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -16457px -1px;
+}
+
+.-two-green-striped-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -16699px -1px;
+}
+
+.-two-green-striped-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -16941px -1px;
+}
+
+.-two-green-striped-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -17183px -1px;
+}
+
+.-two-red-empty-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -17425px -1px;
+}
+
+.-two-red-empty-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -17667px -1px;
+}
+
+.-two-red-empty-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -17909px -1px;
+}
+
+.-two-red-solid-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -18151px -1px;
+}
+
+.-two-red-solid-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -18393px -1px;
+}
+
+.-two-red-solid-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -18635px -1px;
+}
+
+.-two-red-striped-diamonds {
+    width: 240px;
+    height: 150px;
+    background-position: -18877px -1px;
+}
+
+.-two-red-striped-ovals {
+    width: 240px;
+    height: 150px;
+    background-position: -19119px -1px;
+}
+
+.-two-red-striped-squiggles {
+    width: 240px;
+    height: 150px;
+    background-position: -19361px -1px;
+}
