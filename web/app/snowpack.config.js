@@ -1,4 +1,7 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
+
+const proxy = require('http2-proxy');
+
 module.exports = {
   mount: {
     public: { url: '/', static: true },
@@ -6,8 +9,13 @@ module.exports = {
   },
   plugins: ['@snowpack/plugin-react-refresh', '@snowpack/plugin-dotenv'],
   routes: [
-    /* Enable an SPA Fallback in development: */
-    // {"match": "routes", "src": ".*", "dest": "/index.html"},
+    {
+      src: '/start',
+      dest: (req, res) => proxy.web(req, res, {
+        hostname: 'localhost',
+        port: 8000,
+      }),
+    },
   ],
   optimize: {
     /* Example: Bundle your final build: */

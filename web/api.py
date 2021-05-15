@@ -14,8 +14,16 @@ async def homepage(request):
 
     return JSONResponse([card.to_dict() for card in app.state.GAME.board])
 
+async def start(request):
+    if not hasattr(app.state, 'GAME'):
+        app.state.GAME = Game()
+        app.state.GAME.start()
+
+    return JSONResponse([card.to_dict() for card in app.state.GAME.board])
+
 app = Starlette(debug=True, routes=[
-    Route('/', homepage)
+    Route('/', homepage),
+    Route('/start', start),
 ])
 
 
