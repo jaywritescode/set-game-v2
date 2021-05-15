@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 import produce from 'immer';
+import classnames from 'classnames';
 
 import logo from './logo.svg';
 import './App.css';
@@ -50,6 +51,7 @@ function App() {
           <Card
             name={name}
             key={name}
+            isSelected={selected.some(_.matches(card))}
             handleClick={_.partial(onSelectCard, card)}
           />
         );
@@ -59,8 +61,8 @@ function App() {
 }
 
 function Card(props) {
-  const { name, handleClick } = props;
-  return <div className={`card -${name}`} onClick={handleClick} />;
+  const { name, isSelected, handleClick } = props;
+  return <div className={classnames('card', `-${name}`, { selected: isSelected })} onClick={handleClick} />;
 }
 
 export default App;

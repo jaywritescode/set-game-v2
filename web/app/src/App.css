@@ -3,3 +3,7 @@
   grid-template-columns: repeat(3, 1fr);
   width: min-content;
 }
+
+.selected {
+  border: 3px solid black;
+}
