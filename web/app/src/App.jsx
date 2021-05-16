@@ -36,7 +36,7 @@ const isSet = (cards) => {
 function App() {
   const [board, setBoard] = useState([]);
   useEffect(async () => {
-    const response = await fetch('/start');
+    const response = await fetch('/api/start');
     const result = await response.json();
     setBoard(result);
   }, []);
@@ -44,7 +44,7 @@ function App() {
   const [selected, setSelected] = useState([]);
   useEffect(async () => {
     if (isSet(selected)) {
-      const response = await fetch('/submit', {
+      const response = await fetch('/api/submit', {
         method: 'PUT',
         cache: 'no-cache',
         headers: { 'Content-Type': 'application/json' },

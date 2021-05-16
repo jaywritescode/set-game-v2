@@ -1,18 +1,14 @@
 import uvicorn
 from starlette.applications import Starlette
-from starlette.responses import JSONResponse
+from starlette.responses import HTMLResponse, JSONResponse, Response
 from starlette.routing import Route
 
 from game.setgame import Game
 
 
 async def homepage(request):
-    if not hasattr(app.state, 'GAME'):
-        print("starting a new game")
-        app.state.GAME = Game()
-        app.state.GAME.start()
+    return HTMLResponse('<html>hello world</html>')
 
-    return JSONResponse([card.to_dict() for card in app.state.GAME.board])
 
 async def start(request):
     if not hasattr(app.state, 'GAME'):
@@ -21,11 +17,13 @@ async def start(request):
 
     return JSONResponse([card.to_dict() for card in app.state.GAME.board])
 
+
+# This will have to be a websocket route eventually, I think.
+async def submit(request):
+    return Response(status_code=204)
+
 app = Starlette(debug=True, routes=[
     Route('/', homepage),
     Route('/start', start),
+    Route('/submit', endpoint=submit, methods=['PUT'])
 ])
-
-
-if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=8080)

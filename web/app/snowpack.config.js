@@ -10,12 +10,16 @@ module.exports = {
   plugins: ['@snowpack/plugin-react-refresh', '@snowpack/plugin-dotenv'],
   routes: [
     {
-      src: '/start',
-      dest: (req, res) =>
-        proxy.web(req, res, {
+      src: '/api/.*',
+      dest: (req, res) => {
+        console.log(req.url);
+        req.url = req.url.replace(/^\/api/, '');
+
+        return proxy.web(req, res, {
           hostname: 'localhost',
-          port: 8000,
-        }),
+          port: 8899,
+        });
+      },
     },
   ],
   optimize: {
