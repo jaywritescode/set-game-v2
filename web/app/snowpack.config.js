@@ -11,10 +11,11 @@ module.exports = {
   routes: [
     {
       src: '/start',
-      dest: (req, res) => proxy.web(req, res, {
-        hostname: 'localhost',
-        port: 8000,
-      }),
+      dest: (req, res) =>
+        proxy.web(req, res, {
+          hostname: 'localhost',
+          port: 8000,
+        }),
     },
   ],
   optimize: {
