@@ -13,7 +13,7 @@ class Card(namedtuple('Card', ['number', 'color', 'shading', 'shape'])):
 
     def product(self, other):
         attrs = [2 * sum(attr) % 3 for attr in zip(self.to_vector(), other.to_vector())]
-        return Card.create(*attrs)
+        return Card.from_vector(*attrs)
 
     def __str__(self):
         return ' '.join(v.lower() for v in [
@@ -24,12 +24,12 @@ class Card(namedtuple('Card', ['number', 'color', 'shading', 'shape'])):
         ])
 
     @classmethod
-    def create(cls, number, color, shading, shape):
+    def from_vector(cls, number, color, shading, shape):
         return cls(Number(number), Color(color), Shading(shading), Shape(shape))
 
 
 if __name__ == '__main__':
-    c = Card.create(1, 2, 1, 0)
+    c = Card.from_vector(1, 2, 1, 0)
     d = Card(Number.THREE, Color.BLUE, Shading.EMPTY, Shape.OVAL)
 
     print(c)
