@@ -58,21 +58,12 @@ function App() {
     }
   }, [selected]);
 
-
   const onSelectCard = (card) => {
-    if (isSelected(card)) {
-      setSelected(produce((draft) => _.reject(draft, card)));
-      return;
-    }
-
-    setSelected(produce((draft) => draft.concat(card)));
+    const fn = isSelected(card) ? (draft) => _.reject(draft, card) : (draft) => draft.concat(card);
+    setSelected(produce(fn));
   }
 
-
-
-  const isSelected = (card) => _.find(selected, card);
-
-
+  const isSelected = (card) => _.some(selected, card);
 
   return (
     <div className="container">
