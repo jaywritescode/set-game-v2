@@ -1,9 +1,11 @@
-import uvicorn
+import json
+
 from starlette.applications import Starlette
 from starlette.responses import HTMLResponse, JSONResponse, Response
 from starlette.routing import Route
 
 from game.setgame import Game
+from web.serialize import serialize_board
 
 
 async def homepage(request):
@@ -15,7 +17,7 @@ async def start(request):
         app.state.GAME = Game()
         app.state.GAME.start()
 
-    return JSONResponse([card.to_dict() for card in app.state.GAME.board])
+    return JSONResponse(serialize_board(app.state.GAME))
 
 
 # This will have to be a websocket route eventually, I think.

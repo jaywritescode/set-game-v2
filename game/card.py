@@ -1,12 +1,19 @@
-from collections import namedtuple
+import dataclasses
+import json
+from enum import Enum
 
 from .attributes import Number, Color, Shading, Shape
 
 
-class Card(namedtuple('Card', ['number', 'color', 'shading', 'shape'])):
+@dataclasses.dataclass(frozen=True)
+class Card:
+    number: Number
+    color: Color
+    shading: Shading
+    shape: Shape
 
     def to_vector(self):
-        return [field.value for field in self]
+        return tuple(attr.value for attr in dataclasses.astuple(self))
 
     def to_dict(self):
         return {key: value.name for key, value in self._asdict().items()}
@@ -26,13 +33,3 @@ class Card(namedtuple('Card', ['number', 'color', 'shading', 'shape'])):
     @classmethod
     def from_vector(cls, number, color, shading, shape):
         return cls(Number(number), Color(color), Shading(shading), Shape(shape))
-
-
-if __name__ == '__main__':
-    c = Card.from_vector(1, 2, 1, 0)
-    d = Card(Number.THREE, Color.BLUE, Shading.EMPTY, Shape.OVAL)
-
-    print(c)
-    print(d)
-
-    print(c.product(d))

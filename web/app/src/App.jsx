@@ -38,7 +38,7 @@ function App() {
   useEffect(async () => {
     const response = await fetch('/api/start');
     const result = await response.json();
-    setBoard(result);
+    setBoard(JSON.parse(result));
   }, []);
 
   const [selected, setSelected] = useState([]);
