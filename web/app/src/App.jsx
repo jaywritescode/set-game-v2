@@ -48,7 +48,9 @@ function App() {
         method: 'PUT',
         cache: 'no-cache',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(selected.map(obj => Object.assign({ '__card__': true}, obj))),
+        body: JSON.stringify(
+          selected.map((obj) => Object.assign({ __card__: true }, obj)),
+        ),
       });
       const result = await response.json();
       setSelected([]);
@@ -61,9 +63,11 @@ function App() {
   }, [selected]);
 
   const onSelectCard = (card) => {
-    const fn = isSelected(card) ? (draft) => _.reject(draft, card) : (draft) => draft.concat(card);
+    const fn = isSelected(card)
+      ? (draft) => _.reject(draft, card)
+      : (draft) => draft.concat(card);
     setSelected(produce(fn));
-  }
+  };
 
   const isSelected = (card) => _.some(selected, card);
 

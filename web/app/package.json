@@ -2,8 +2,7 @@
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
-    "test": "mocha",
-    "test:watch": "mocha --watch",
+    "test": "mocha --timeout 15000",
     "test:inspect": "PWDEBUG=1 npm run test",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "prettier --check \"src/**/*.{js,jsx}\""
