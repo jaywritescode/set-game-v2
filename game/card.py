@@ -1,6 +1,4 @@
 import dataclasses
-import json
-from enum import Enum
 
 from .attributes import Number, Color, Shading, Shape
 
@@ -14,9 +12,6 @@ class Card:
 
     def to_vector(self):
         return tuple(attr.value for attr in dataclasses.astuple(self))
-
-    def to_dict(self):
-        return {key: value.name for key, value in self._asdict().items()}
 
     def product(self, other):
         attrs = [2 * sum(attr) % 3 for attr in zip(self.to_vector(), other.to_vector())]

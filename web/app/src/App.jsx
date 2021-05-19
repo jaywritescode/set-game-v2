@@ -48,9 +48,11 @@ function App() {
         method: 'PUT',
         cache: 'no-cache',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(selected),
+        body: JSON.stringify(selected.map(obj => Object.assign({ '__card__': true}, obj))),
       });
-      console.log(response);  
+      const result = await response.json();
+      setSelected([]);
+      setBoard(JSON.parse(result));
     }
 
     if (selected.length == 3) {

@@ -1,5 +1,5 @@
 from itertools import product, combinations
-from more_itertools import all_equal, all_unique
+from more_itertools import all_equal, all_unique, replace
 import random
 
 from .attributes import Number, Color, Shading, Shape
@@ -27,6 +27,20 @@ class Game:
     def has_set(self):
         return any(cards[0].product(cards[1]) in self.board for cards in combinations(self.board.keys(), 2))
 
+    def receive_set(self, cards):
+        if not all(card in self.board for card in cards):
+            return False
+
+        if not is_set(cards):
+            return False
+
+        deal, self.deck = self.deck[:3], self.deck[3:]
+        _board = replace(self.board.keys(), lambda card: card in cards, deal)
+        self.board = dict.fromkeys(_board)
+
+        self.ensure_solvable()
+        return self.board
+
 
 def is_set(triplet):
     return all(all_equal(attrs) or all_unique(attrs) for attrs in zip(triplet))
@@ -34,11 +48,3 @@ def is_set(triplet):
 
 def create_deck():
     return [Card(*attrs) for attrs in product(Number, Color, Shading, Shape)]
-
-
-if __name__ == '__main__':
-    game = Game()
-    game.start()
-
-    import pprint
-    pprint.pprint([str(card) for card in game.board])
