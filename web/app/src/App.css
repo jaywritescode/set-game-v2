@@ -2,6 +2,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   width: min-content;
+
+  filter: brightness(1.5);
 }
 
 .selected {
