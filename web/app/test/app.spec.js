@@ -14,7 +14,6 @@ describe('App.jsx', () => {
   });
 
   afterEach(async function () {
-    // await page.screenshot({ path: `${this.currentTest.title.replace(/\s+/g, '_')}.png` })
     await browser.close();
   });
 
@@ -27,19 +26,38 @@ describe('App.jsx', () => {
     expect(list).to.have.length.at.least(12);
   });
 
-  it('selects and unselects an element', async () => {
+  describe('after board is loaded', () => {
     const sel = '.card';
 
-    await page.waitForSelector(sel);
+    beforeEach(async () => {
+      await page.waitForSelector(sel);
+    });
 
-    const element = await page.$(`:nth-match(${sel}, 2)`);
-    await element.click();
-    let classList = await element.getAttribute('class');
+    it('selects and unselects an element', async () => {
+      const element = await page.$(`:nth-match(${sel}, 2)`);
+      await element.click();
+      let classList = await element.getAttribute('class');
 
-    expect(classList).to.include('selected');
+      expect(classList).to.include('selected');
 
-    await element.click();
-    classList = await element.getAttribute('class');
-    expect(classList).to.not.include('selected');
+      await element.click();
+      classList = await element.getAttribute('class');
+      expect(classList).to.not.include('selected');
+    });
+
+    it('submits a set', async () => {
+      const selectors = [
+        '.-three-blue-empty-diamonds',
+        '.-one-red-striped-diamond',
+        '.-two-green-solid-diamonds',
+      ];
+
+      await Promise.all(selectors.map((sel) => page.click(sel)));
+      const response = await page.waitForResponse('/submit');
+
+      console.log(response);
+
+      expect(response.status()).to.equal(200);
+    });
   });
 });
