@@ -72,7 +72,7 @@ function App() {
   const isSelected = (card) => _.some(selected, card);
 
   return (
-    <div className="container">
+    <div className="board">
       {board.map((card) => {
         const name = spriteName(card);
         return (
