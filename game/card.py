@@ -28,3 +28,10 @@ class Card:
     @classmethod
     def from_vector(cls, number, color, shading, shape):
         return cls(Number(number), Color(color), Shading(shading), Shape(shape))
+
+    @classmethod
+    def from_str(cls, string):
+        number, color, shading, shape = string.upper().split()
+        if shape.endswith('S'):
+            shape = shape[:-1]
+        return cls(Number[number], Color[color], Shading[shading], Shape[shape])
