@@ -1,7 +1,9 @@
 .board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2px;
   width: min-content;
+  margin: 0 auto;
 
   filter: brightness(1.5);
 }

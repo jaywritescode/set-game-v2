@@ -4,7 +4,7 @@ import produce from 'immer';
 import classnames from 'classnames';
 
 import logo from './logo.svg';
-import './App.css';
+import './Game.css';
 import './spritesheet.css';
 
 const attrs = {
@@ -33,7 +33,7 @@ const isSet = (cards) => {
   return _.zip(...cards.map(toVector)).every((arr) => _.sum(arr) % 3 == 0);
 };
 
-function App() {
+function Game() {
   const [board, setBoard] = useState([]);
   useEffect(async () => {
     const response = await fetch('/api/start');
@@ -98,4 +98,4 @@ function Card(props) {
   );
 }
 
-export default App;
+export default Game;
