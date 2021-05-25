@@ -9,10 +9,13 @@ export default function App() {
   const {
     sendJsonMessage,
   } = useWebSocket(socketUrl, {
-    onOpen: () => console.log('opened'),
+    onOpen: () => console.log('connection opened'),
+    onMessage: (evt) => {
+      console.log(`[message] ${evt.data}`);
+    }
   });
 
   return (
-    <Game />
+    <Game sendJsonMessage={sendJsonMessage} />
   );
 }

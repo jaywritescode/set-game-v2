@@ -34,6 +34,8 @@ const isSet = (cards) => {
 };
 
 function Game(props) {
+  const { sendJsonMessage } = props;
+
   const [board, setBoard] = useState([]);
   useEffect(async () => {
     const response = await fetch('/api/start');
@@ -42,25 +44,27 @@ function Game(props) {
   }, []);
 
   const [selected, setSelected] = useState([]);
-  useEffect(async () => {
+  useEffect(() => {
     if (isSet(selected)) {
-      const response = await fetch('/api/submit', {
-        method: 'PUT',
-        cache: 'no-cache',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(
-          selected.map((obj) => Object.assign({ __card__: true }, obj)),
-        ),
-      });
-      const result = await response.json();
-      setSelected([]);
-      setBoard(JSON.parse(result));
+      submit();
     }
 
     if (selected.length == 3) {
       setSelected([]);
     }
-  }, [selected]);
+  })
+
+  const onCardsDealt = ({ board, }) => {
+    setBoard(JSON.parse(board));
+  }
+
+  const submit = () => {
+    console.log('submitting...');
+    console.dir(selected);
+
+    const msg = selected.map((obj) => Object.assign({ __card__: true }, obj));
+    sendJsonMessage(JSON.stringify(msg));
+  }
 
   const onSelectCard = (card) => {
     const fn = isSelected(card)
