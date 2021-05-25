@@ -1,4 +1,5 @@
 import json
+import os
 
 from starlette.applications import Starlette
 from starlette.responses import HTMLResponse, JSONResponse
@@ -10,7 +11,8 @@ from web.serialize import serialize_board, as_card
 
 
 async def homepage(request):
-    return HTMLResponse('<html>hello world</html>')
+    with open(os.path.join(os.path.dirname(__file__), 'app', 'build/index.html')) as file:
+        return HTMLResponse(file.read())
 
 
 async def start(request):
