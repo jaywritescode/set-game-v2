@@ -33,7 +33,7 @@ const isSet = (cards) => {
   return _.zip(...cards.map(toVector)).every((arr) => _.sum(arr) % 3 == 0);
 };
 
-function Game() {
+function Game(props) {
   const [board, setBoard] = useState([]);
   useEffect(async () => {
     const response = await fetch('/api/start');

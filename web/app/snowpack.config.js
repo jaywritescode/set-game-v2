@@ -30,7 +30,7 @@ module.exports = {
     /* ... */
   },
   devOptions: {
-    hmrPort: 8081,
+    hmr: false,
   },
   buildOptions: {
     /* ... */

@@ -29,6 +29,7 @@ async def submit(request):
 
 
 async def websocket_endpoint(websocket):
+    print('websocket accept endpoint hit')
     await websocket.accept()
     await websocket.send_text('Hello, websocket!')
     await websocket.close()
@@ -38,5 +39,5 @@ app = Starlette(debug=True, routes=[
     Route('/', homepage),
     Route('/start', start),
     Route('/submit', endpoint=submit, methods=['PUT']),
-    WebSocketRoute('/websocket', websocket_endpoint),
+    WebSocketRoute('/ws', websocket_endpoint),
 ])
