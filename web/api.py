@@ -5,7 +5,7 @@ import random
 import string
 
 from starlette.applications import Starlette
-from starlette.responses import HTMLResponse, JSONResponse
+from starlette.responses import HTMLResponse, JSONResponse, Response
 from starlette.routing import Route, WebSocketRoute
 from starlette.websockets import WebSocketDisconnect
 
@@ -37,11 +37,14 @@ def generate_room_id():
 
 
 async def start(request):
-    if not hasattr(app.state, 'GAME'):
-        app.state.GAME = Game()
-        app.state.GAME.start()
+    room = request.path_params['room']
+    if room not in app.state.GAMES:
+        return Response(status_code=404)
 
-    return JSONResponse(serialize_board(app.state.GAME))
+    game = app.state.GAMES[room]
+    game.start()
+
+    return JSONResponse(serialize_board(game))
 
 
 async def websocket_endpoint(websocket):
@@ -63,7 +66,7 @@ async def websocket_endpoint(websocket):
 
 app = Starlette(debug=True, routes=[
     Route('/', homepage),
-    Route('/start', start),
+    Route('/start/{room}', start),
     Route('/create', create, methods=['POST']),
     WebSocketRoute('/ws', websocket_endpoint),
 ])

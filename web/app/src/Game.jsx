@@ -34,11 +34,11 @@ const isSet = (cards) => {
 };
 
 function Game(props) {
-  const { sendJsonMessage } = props;
+  const { room, sendJsonMessage } = props;
 
   const [board, setBoard] = useState([]);
   useEffect(async () => {
-    const response = await fetch('/api/start');
+    const response = await fetch(`/api/start/${room}`);
     const result = await response.json();
     setBoard(JSON.parse(result));
   }, []);
