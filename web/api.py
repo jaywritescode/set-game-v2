@@ -12,7 +12,11 @@ from starlette.websockets import WebSocketDisconnect
 from game.setgame import Game
 from web.serialize import serialize_board, as_card
 
-logger = logging.getLogger('app.api')
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+logger = logging.getLogger(__name__)
+logger.addHandler(ch)
+logger.setLevel(logging.DEBUG)
 
 async def homepage(request):
     with open(os.path.join(os.path.dirname(__file__), 'app', 'build/index.html')) as file:
@@ -21,7 +25,6 @@ async def homepage(request):
 
 async def create(request):
     room = generate_room_id()
-    logger.info("Generating room: %s", room)
     app.state.GAMES[room] = Game()
     return JSONResponse({ 'room': room })
 
