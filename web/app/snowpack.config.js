@@ -12,9 +12,7 @@ module.exports = {
     {
       src: '/api/.*',
       dest: (req, res) => {
-        console.log(req.url);
         req.url = req.url.replace(/^\/api/, '');
-
         return proxy.web(req, res, {
           hostname: 'localhost',
           port: 8899,
