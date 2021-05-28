@@ -5,7 +5,7 @@ import random
 import string
 
 from starlette.applications import Starlette
-from starlette.responses import HTMLResponse, JSONResponse, Response
+from starlette.responses import HTMLResponse, JSONResponse, RedirectResponse, Response
 from starlette.routing import Route, WebSocketRoute
 from starlette.websockets import WebSocketDisconnect
 
@@ -27,6 +27,13 @@ async def create(request):
     room = generate_room_id()
     app.state.GAMES[room] = Game()
     return JSONResponse({ 'room': room })
+
+async def join(request):
+    room = request.query_params['room']
+    if room in app.state.GAMES:
+        return RedirectResponse(url=f"/api/start/{room}")
+    else:
+        return Response(status_code=404)
 
 
 def generate_room_id():
@@ -68,6 +75,7 @@ app = Starlette(debug=True, routes=[
     Route('/', homepage),
     Route('/start/{room}', start),
     Route('/create', create, methods=['POST']),
+    Route('/join', join),
     WebSocketRoute('/ws', websocket_endpoint),
 ])
 app.state.GAMES = dict()
