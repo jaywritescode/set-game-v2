@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 logger.addHandler(ch)
 logger.setLevel(logging.DEBUG)
 
+
 async def homepage(request):
     with open(os.path.join(os.path.dirname(__file__), 'app', 'build/index.html')) as file:
         return HTMLResponse(file.read())
@@ -26,22 +27,25 @@ async def homepage(request):
 
 async def create(request):
     room = generate_room_id()
-    app.state.GAMES[room] = Game()
+
+    game = Game()
+    app.state.GAMES[room] = game
+    game.start()
+
     return JSONResponse({ 'room': room })
+
 
 async def join(request):
     room = request.query_params['room']
-    if room in app.state.GAMES:
-        return RedirectResponse(url=f"/api/start/{room}")
-    else:
+    if room not in app.state.GAMES:
         return Response(status_code=404)
 
+    return JSONResponse({ 'room': room })
 
-def generate_room_id():
-    while True:
-        room_id = ''.join(random.choices(string.ascii_lowercase, k=4))
-        if room_id not in app.state.GAMES:
-            return room_id
+
+class OrjsonResponse(JSONResponse):
+    def render(self, content):
+        return orjson.dumps(content)
 
 
 async def start(request):
@@ -49,10 +53,14 @@ async def start(request):
     if room not in app.state.GAMES:
         return Response(status_code=404)
 
-    game = app.state.GAMES[room]
-    game.start()
+    return OrjsonResponse({ 'game': app.state.GAMES[room].as_dict() })
 
-    return JSONResponse(serialize_board(game))
+
+def generate_room_id():
+    while True:
+        room_id = ''.join(random.choices(string.ascii_lowercase, k=4))
+        if room_id not in app.state.GAMES:
+            return room_id
 
 
 async def websocket_endpoint(websocket):

@@ -8,17 +8,15 @@ import './Game.css';
 import './spritesheet.css';
 
 const attrs = {
-  number: { ONE: 0, TWO: 1, THREE: 2 },
-  color: { RED: 0, BLUE: 1, GREEN: 2 },
-  shading: { EMPTY: 0, STRIPED: 1, SOLID: 2 },
-  shape: { DIAMOND: 0, OVAL: 1, SQUIGGLE: 2 },
+  number: ['one', 'two', 'three'],
+  color: ['red', 'blue', 'green'],
+  shading: ['empty', 'striped', 'solid'],
+  shape: ['diamond', 'oval', 'squiggle'],
 };
 
 const spriteName = ({ number, color, shading, shape }) => {
-  const name = [number, color, shading, shape]
-    .map((x) => x.toLowerCase())
-    .join('-');
-  return number == 'ONE' ? name : `${name}s`;
+  const name = [number, color, shading, shape].join('-');
+  return number == 'one' ? name : `${name}s`;
 };
 
 const toVector = (card) => {
@@ -40,7 +38,11 @@ function Game(props) {
   useEffect(async () => {
     const response = await fetch(`/api/start/${room}`);
     const result = await response.json();
-    setBoard(JSON.parse(result));
+
+    const board = result['game']['board'].map((card) =>
+      _.mapValues(card, (value, key) => attrs[key][value]),
+    );
+    setBoard(board);
   }, []);
 
   const [selected, setSelected] = useState([]);
