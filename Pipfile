@@ -10,6 +10,7 @@ pytest = "*"
 more-itertools = "*"
 starlette = "*"
 uvicorn = "*"
+orjson = "*"
 
 [requires]
 python_version = "3.9"

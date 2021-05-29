@@ -4,6 +4,7 @@ import os
 import random
 import string
 
+import orjson
 from starlette.applications import Starlette
 from starlette.responses import HTMLResponse, JSONResponse, RedirectResponse, Response
 from starlette.routing import Route, WebSocketRoute
