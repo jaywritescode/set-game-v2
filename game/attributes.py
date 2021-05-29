@@ -1,7 +1,7 @@
-from enum import Enum, auto
+from enum import IntEnum, auto
 
 
-class AutoNumber(Enum):
+class AutoNumber(IntEnum):
     """
     Index the enums representing attributes starting at zero.
     """
