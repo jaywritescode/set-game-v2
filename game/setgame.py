@@ -41,6 +41,11 @@ class Game:
         self.ensure_solvable()
         return self.board
 
+    def as_dict(self):
+        return {
+            'board': list(self.board.keys())
+        }
+
 
 def is_set(triplet):
     return all(all_equal(attrs) or all_unique(attrs) for attrs in zip(triplet))
