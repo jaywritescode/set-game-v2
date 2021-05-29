@@ -23,7 +23,3 @@ def as_card(dct):
 
 def serialize_board(game):
     return json.dumps(list(game.board.keys()), cls=CardEncoder)
-
-
-def serialize_cards(objs):
-    return [Card(**obj) for obj in objs]
