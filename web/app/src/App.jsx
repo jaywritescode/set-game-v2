@@ -9,23 +9,19 @@ const ROOM_CODE_LENGTH = 4;
 export default function App() {
   const [room, setRoom] = useState(null);
 
-  const {
-    sendJsonMessage,
-  } = useWebSocket(socketUrl, {
+  const { sendJsonMessage } = useWebSocket(socketUrl, {
     onOpen: () => console.log('connection opened'),
     onMessage: (evt) => {
       console.log(`[message] ${evt.data}`);
-    }
+    },
   });
 
   const onCreateNewGame = async () => {
     const response = await fetch('/api/create', { method: 'POST' });
     if (response.ok) {
-      const json = await response.json();
-      const { room } = json;
-      setRoom(room);
+      handleEnterRoomResponse(response);
     }
-  }
+  };
 
   const onJoinGame = async () => {
     const room = document.getElementById('room_code').value;
@@ -33,16 +29,16 @@ export default function App() {
       return;
     }
 
-    const response = await fetch(`/api/join?room=${room}`);
+    const response = await fetch('/api/join');
     if (response.ok) {
-      const json = await response.json();
-      const { room } = json;
-      setRoom(room);
+      handleEnterRoomResponse(response);
     }
-    else {
-      // handle 404
-    }
-  }
+  };
+
+  const handleEnterRoomResponse = async (response) => {
+    const json = await response.json();
+    setRoom(json.room);
+  };
 
   if (!room) {
     return (
@@ -54,7 +50,5 @@ export default function App() {
     );
   }
 
-  return (
-    <Game room={room} sendJsonMessage={sendJsonMessage} />
-  );
+  return <Game room={room} sendJsonMessage={sendJsonMessage} />;
 }

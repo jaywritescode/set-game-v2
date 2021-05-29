@@ -54,11 +54,11 @@ function Game(props) {
     if (selected.length == 3) {
       setSelected([]);
     }
-  })
+  });
 
-  const onCardsDealt = ({ board, }) => {
+  const onCardsDealt = ({ board }) => {
     setBoard(JSON.parse(board));
-  }
+  };
 
   const submit = () => {
     console.log('submitting...');
@@ -66,7 +66,7 @@ function Game(props) {
 
     const msg = selected.map((obj) => Object.assign({ __card__: true }, obj));
     sendJsonMessage(JSON.stringify(msg));
-  }
+  };
 
   const onSelectCard = (card) => {
     const fn = isSelected(card)
