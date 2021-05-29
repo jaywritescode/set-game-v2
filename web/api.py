@@ -1,13 +1,23 @@
 import json
+import logging
 import os
+import random
+import string
 
+import orjson
 from starlette.applications import Starlette
-from starlette.responses import HTMLResponse, JSONResponse
+from starlette.responses import HTMLResponse, JSONResponse, RedirectResponse, Response
 from starlette.routing import Route, WebSocketRoute
 from starlette.websockets import WebSocketDisconnect
 
 from game.setgame import Game
 from web.serialize import serialize_board, as_card
+
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+logger = logging.getLogger(__name__)
+logger.addHandler(ch)
+logger.setLevel(logging.DEBUG)
 
 
 async def homepage(request):
@@ -15,12 +25,42 @@ async def homepage(request):
         return HTMLResponse(file.read())
 
 
-async def start(request):
-    if not hasattr(app.state, 'GAME'):
-        app.state.GAME = Game()
-        app.state.GAME.start()
+async def create(request):
+    room = generate_room_id()
 
-    return JSONResponse(serialize_board(app.state.GAME))
+    game = Game()
+    app.state.GAMES[room] = game
+    game.start()
+
+    return JSONResponse({ 'room': room })
+
+
+async def join(request):
+    room = request.query_params['room']
+    if room not in app.state.GAMES:
+        return Response(status_code=404)
+
+    return JSONResponse({ 'room': room })
+
+
+class OrjsonResponse(JSONResponse):
+    def render(self, content):
+        return orjson.dumps(content)
+
+
+async def start(request):
+    room = request.path_params['room']
+    if room not in app.state.GAMES:
+        return Response(status_code=404)
+
+    return OrjsonResponse({ 'game': app.state.GAMES[room].as_dict() })
+
+
+def generate_room_id():
+    while True:
+        room_id = ''.join(random.choices(string.ascii_lowercase, k=4))
+        if room_id not in app.state.GAMES:
+            return room_id
 
 
 async def websocket_endpoint(websocket):
@@ -42,6 +82,9 @@ async def websocket_endpoint(websocket):
 
 app = Starlette(debug=True, routes=[
     Route('/', homepage),
-    Route('/start', start),
+    Route('/start/{room}', start),
+    Route('/create', create, methods=['POST']),
+    Route('/join', join),
     WebSocketRoute('/ws', websocket_endpoint),
 ])
+app.state.GAMES = dict()

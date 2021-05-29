@@ -8,17 +8,15 @@ import './Game.css';
 import './spritesheet.css';
 
 const attrs = {
-  number: { ONE: 0, TWO: 1, THREE: 2 },
-  color: { RED: 0, BLUE: 1, GREEN: 2 },
-  shading: { EMPTY: 0, STRIPED: 1, SOLID: 2 },
-  shape: { DIAMOND: 0, OVAL: 1, SQUIGGLE: 2 },
+  number: ['one', 'two', 'three'],
+  color: ['red', 'blue', 'green'],
+  shading: ['empty', 'striped', 'solid'],
+  shape: ['diamond', 'oval', 'squiggle'],
 };
 
 const spriteName = ({ number, color, shading, shape }) => {
-  const name = [number, color, shading, shape]
-    .map((x) => x.toLowerCase())
-    .join('-');
-  return number == 'ONE' ? name : `${name}s`;
+  const name = [number, color, shading, shape].join('-');
+  return number == 'one' ? name : `${name}s`;
 };
 
 const toVector = (card) => {
@@ -34,13 +32,17 @@ const isSet = (cards) => {
 };
 
 function Game(props) {
-  const { sendJsonMessage } = props;
+  const { room, sendJsonMessage } = props;
 
   const [board, setBoard] = useState([]);
   useEffect(async () => {
-    const response = await fetch('/api/start');
+    const response = await fetch(`/api/start/${room}`);
     const result = await response.json();
-    setBoard(JSON.parse(result));
+
+    const board = result['game']['board'].map((card) =>
+      _.mapValues(card, (value, key) => attrs[key][value]),
+    );
+    setBoard(board);
   }, []);
 
   const [selected, setSelected] = useState([]);
@@ -52,11 +54,11 @@ function Game(props) {
     if (selected.length == 3) {
       setSelected([]);
     }
-  })
+  });
 
-  const onCardsDealt = ({ board, }) => {
+  const onCardsDealt = ({ board }) => {
     setBoard(JSON.parse(board));
-  }
+  };
 
   const submit = () => {
     console.log('submitting...');
@@ -64,7 +66,7 @@ function Game(props) {
 
     const msg = selected.map((obj) => Object.assign({ __card__: true }, obj));
     sendJsonMessage(JSON.stringify(msg));
-  }
+  };
 
   const onSelectCard = (card) => {
     const fn = isSelected(card)
