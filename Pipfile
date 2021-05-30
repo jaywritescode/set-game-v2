@@ -12,6 +12,8 @@ starlette = "*"
 uvicorn = "*"
 orjson = "*"
 websockets = "*"
+marshmallow = "*"
+marshmallow-dataclass = {extras = ["enum"], version = "*"}
 
 [requires]
 python_version = "3.9"
