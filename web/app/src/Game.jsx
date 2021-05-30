@@ -20,7 +20,7 @@ const spriteName = ({ number, color, shading, shape }) => {
 };
 
 const toVector = (card) => {
-  return Object.keys(attrs).map((attr) => attrs[attr][card[attr]]);
+  return Object.keys(attrs).map((attr) => attrs[attr].indexOf(card[attr]));
 };
 
 const isSet = (cards) => {
