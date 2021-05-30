@@ -4,14 +4,13 @@ import os
 import random
 import string
 
-import orjson
 from starlette.applications import Starlette
-from starlette.responses import HTMLResponse, JSONResponse, RedirectResponse, Response
+from starlette.responses import HTMLResponse, JSONResponse, Response
 from starlette.routing import Route, WebSocketRoute
 from starlette.websockets import WebSocketDisconnect
 
-from game.setgame import Game
-from web.serialize import serialize_board, as_card
+from game.setgame import Game, GameSchema
+from web.serialize import as_card
 
 ch = logging.StreamHandler()
 ch.setLevel(logging.DEBUG)
@@ -43,17 +42,13 @@ async def join(request):
     return JSONResponse({ 'room': room })
 
 
-class OrjsonResponse(JSONResponse):
-    def render(self, content):
-        return orjson.dumps(content)
-
-
 async def start(request):
     room = request.path_params['room']
     if room not in app.state.GAMES:
         return Response(status_code=404)
 
-    return OrjsonResponse({ 'game': app.state.GAMES[room].as_dict() })
+    schema = GameSchema()
+    return JSONResponse(schema.dump(app.state.GAMES[room]))
 
 
 def generate_room_id():
@@ -68,9 +63,17 @@ async def websocket_endpoint(websocket):
 
     try:
         while True:
-            data = await websocket.receive_json()
-            result = app.state.GAME.receive_set(json.loads(data, object_hook=as_card))
-            await websocket.send_json(serialize_board(app.state.GAME) if result else dict())
+            data = json.loads(await websocket.receive_json(), object_hook=as_card)
+
+            room = data['room']
+            assert room in app.state.GAMES
+
+            cards = data['cards']
+            game = app.state.GAMES[room]
+
+            result = game.receive_set(cards)
+            schema = GameSchema()
+            await websocket.send_json(schema.dump(result))
     except WebSocketDisconnect as e:
         if e.code == 1000:
             print(f"Disconnected with code: {e.code}")

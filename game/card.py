@@ -1,4 +1,5 @@
 import dataclasses
+from marshmallow_dataclass import class_schema
 
 from .attributes import Number, Color, Shading, Shape
 
@@ -35,3 +36,7 @@ class Card:
         if shape.endswith('S'):
             shape = shape[:-1]
         return cls(Number[number], Color[color], Shading[shading], Shape[shape])
+
+    @staticmethod
+    def schema():
+        return class_schema(Card)

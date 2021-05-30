@@ -1,4 +1,5 @@
-from itertools import product, combinations
+from itertools import combinations, product
+from marshmallow import fields, Schema
 from more_itertools import all_equal, all_unique, replace
 import random
 
@@ -28,23 +29,19 @@ class Game:
         return any(cards[0].product(cards[1]) in self.board for cards in combinations(self.board.keys(), 2))
 
     def receive_set(self, cards):
-        if not all(card in self.board for card in cards):
-            return False
-
-        if not is_set(cards):
-            return False
+        assert all(card in self.board for card in cards)
+        assert is_set(cards)
 
         deal, self.deck = self.deck[:3], self.deck[3:]
         _board = replace(self.board.keys(), lambda card: card in cards, deal)
         self.board = dict.fromkeys(_board)
 
         self.ensure_solvable()
-        return self.board
+        return self
 
-    def as_dict(self):
-        return {
-            'board': list(self.board.keys())
-        }
+
+class GameSchema(Schema):
+    board = fields.List(fields.Nested(Card.schema()))
 
 
 def is_set(triplet):

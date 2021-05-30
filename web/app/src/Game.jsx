@@ -39,10 +39,7 @@ function Game(props) {
     const response = await fetch(`/api/start/${room}`);
     const result = await response.json();
 
-    const board = result['game']['board'].map((card) =>
-      _.mapValues(card, (value, key) => attrs[key][value]),
-    );
-    setBoard(board);
+    setBoard(result['board'].map(card => _.mapValues(card, _.lowerCase)));
   }, []);
 
   const [selected, setSelected] = useState([]);
@@ -55,16 +52,12 @@ function Game(props) {
       setSelected([]);
     }
   });
-
-  const onCardsDealt = ({ board }) => {
-    setBoard(JSON.parse(board));
-  };
-
+  
   const submit = () => {
-    console.log('submitting...');
-    console.dir(selected);
-
-    const msg = selected.map((obj) => Object.assign({ __card__: true }, obj));
+    const msg = {
+      room,
+      cards: selected.map((obj) => Object.assign({ __card__: true }, obj)),
+    };
     sendJsonMessage(JSON.stringify(msg));
   };
 
