@@ -29,7 +29,7 @@ export default function App() {
       return;
     }
 
-    const response = await fetch('/api/join');
+    const response = await fetch(`api/join?room=${room}`);
     if (response.ok) {
       handleEnterRoomResponse(response);
     }
