@@ -60,12 +60,12 @@ def generate_room_id():
 
 async def websocket_endpoint(websocket):
     await websocket.accept()
+    room = websocket.path_params['room']
 
     try:
         while True:
             data = json.loads(await websocket.receive_json(), object_hook=as_card)
 
-            room = data['room']
             assert room in app.state.GAMES
 
             cards = data['cards']
@@ -88,6 +88,6 @@ app = Starlette(debug=True, routes=[
     Route('/start/{room}', start),
     Route('/create', create, methods=['POST']),
     Route('/join', join),
-    WebSocketRoute('/ws', websocket_endpoint),
+    WebSocketRoute('/ws/{room}', websocket_endpoint),
 ])
 app.state.GAMES = dict()

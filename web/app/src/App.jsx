@@ -1,20 +1,11 @@
 import React, { useState } from 'react';
-import useWebSocket from 'react-use-websocket';
 
-import Game from './Game.jsx';
+import Room from './Room';
 
-const socketUrl = 'ws://0.0.0.0:8899/ws';
 const ROOM_CODE_LENGTH = 4;
 
 export default function App() {
   const [room, setRoom] = useState(null);
-
-  const { sendJsonMessage } = useWebSocket(socketUrl, {
-    onOpen: () => console.log('connection opened'),
-    onMessage: (evt) => {
-      console.log(`[message] ${evt.data}`);
-    },
-  });
 
   const onCreateNewGame = async () => {
     const response = await fetch('/api/create', { method: 'POST' });
@@ -50,5 +41,5 @@ export default function App() {
     );
   }
 
-  return <Game room={room} sendJsonMessage={sendJsonMessage} />;
+  return <Room id={room} />;
 }
