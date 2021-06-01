@@ -23,7 +23,7 @@ class Card:
             self.number.name,
             self.color.name,
             self.shading.name,
-            self.shape.name + ('' if self.number == Number.ONE else 's')
+            self.shape.name + ('' if self.number == Number.one else 's')
         ])
 
     @classmethod
@@ -32,8 +32,8 @@ class Card:
 
     @classmethod
     def from_str(cls, string):
-        number, color, shading, shape = string.upper().split()
-        if shape.endswith('S'):
+        number, color, shading, shape = string.split()
+        if shape.endswith('s'):
             shape = shape[:-1]
         return cls(Number[number], Color[color], Shading[shading], Shape[shape])
 

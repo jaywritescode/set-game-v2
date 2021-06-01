@@ -10,24 +10,24 @@ class AutoNumber(IntEnum):
 
 
 class Number(AutoNumber):
-    ONE = auto()
-    TWO = auto()
-    THREE = auto()
+    one = auto()
+    two = auto()
+    three = auto()
 
 
 class Color(AutoNumber):
-    RED = auto()
-    BLUE = auto()
-    GREEN = auto()
+    red = auto()
+    blue = auto()
+    green = auto()
 
 
 class Shading(AutoNumber):
-    EMPTY = auto()
-    STRIPED = auto()
-    SOLID = auto()
+    empty = auto()
+    striped = auto()
+    solid = auto()
 
 
 class Shape(AutoNumber):
-    DIAMOND = auto()
-    OVAL = auto()
-    SQUIGGLE = auto()
+    diamond = auto()
+    oval = auto()
+    squiggle = auto()
