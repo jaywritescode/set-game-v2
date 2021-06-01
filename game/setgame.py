@@ -1,5 +1,4 @@
 from itertools import combinations, product
-from marshmallow import fields, Schema
 from more_itertools import all_equal, all_unique, replace
 import random
 
@@ -38,10 +37,6 @@ class Game:
 
         self.ensure_solvable()
         return self
-
-
-class GameSchema(Schema):
-    board = fields.List(fields.Nested(Card.schema()))
 
 
 def is_set(triplet):
