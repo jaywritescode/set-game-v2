@@ -6,27 +6,26 @@ import Game from './Game';
 const socketUrl = 'ws://0.0.0.0:8899/ws';
 
 export default function Room(props) {
-  const [board, setBoard] = useState([]);
-
   const { id } = props;
 
   const handleMessageReceived = (msg) => {
-    data = JSON.parse(msg);
-    switch (data.type) {
-    }
+    console.log(msg);
+    console.log(JSON.parse(msg.data));
   };
   const { sendJsonMessage } = useWebSocket(`${socketUrl}/${id}`, {
     onMessage: handleMessageReceived,
   });
 
-  
+  const submit = (cards) => {
+    return sendJsonMessage({
+      cards
+    });
+  }
 
   return (
     <>
       <div id={id}>room code: {id}</div>
-      <Game room="aabc" sendJsonMessage={() => {}} />
+      <Game room={id} submit={submit} />
     </>
-  )
-
-  // return <Game board={board} />;
+  );
 }

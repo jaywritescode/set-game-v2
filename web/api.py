@@ -9,8 +9,9 @@ from starlette.responses import HTMLResponse, JSONResponse, Response
 from starlette.routing import Route, WebSocketRoute
 from starlette.websockets import WebSocketDisconnect
 
-from game.setgame import Game, GameSchema
-from web.serialize import as_card
+from game.card import Card
+from game.setgame import Game
+from web.serialize import CardSchema, GameSchema
 
 ch = logging.StreamHandler()
 ch.setLevel(logging.DEBUG)
@@ -64,16 +65,15 @@ async def websocket_endpoint(websocket):
 
     try:
         while True:
-            data = json.loads(await websocket.receive_json(), object_hook=as_card)
-
             assert room in app.state.GAMES
 
-            cards = data['cards']
+            data = await websocket.receive_json()
+
+            cards = CardSchema(many=True).load(data['cards'])
             game = app.state.GAMES[room]
 
             result = game.receive_set(cards)
-            schema = GameSchema()
-            await websocket.send_json(schema.dump(result))
+            await websocket.send_json(GameSchema().dump(result))
     except WebSocketDisconnect as e:
         if e.code == 1000:
             print(f"Disconnected with code: {e.code}")
