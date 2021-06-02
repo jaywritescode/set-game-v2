@@ -32,34 +32,25 @@ const isSet = (cards) => {
 };
 
 function Game(props) {
-  const { room, sendJsonMessage } = props;
+  const { submit, state: {board} } = props;
 
-  const [board, setBoard] = useState([]);
-  useEffect(async () => {
-    const response = await fetch(`/api/start/${room}`);
-    const result = await response.json();
+  // useEffect(async () => {
+  //   const response = await fetch(`/api/start/${room}`);
+  //   const result = await response.json();
 
-    setBoard(result['board'].map(card => _.mapValues(card, _.lowerCase)));
-  }, []);
+  //   handleUpdateBoard(result['board']);
+  // }, []);
 
   const [selected, setSelected] = useState([]);
   useEffect(() => {
     if (isSet(selected)) {
-      submit();
+      submit(selected);
     }
 
     if (selected.length == 3) {
       setSelected([]);
     }
   });
-  
-  const submit = () => {
-    const msg = {
-      room,
-      cards: selected.map((obj) => Object.assign({ __card__: true }, obj)),
-    };
-    sendJsonMessage(JSON.stringify(msg));
-  };
 
   const onSelectCard = (card) => {
     const fn = isSelected(card)
@@ -72,7 +63,7 @@ function Game(props) {
 
   return (
     <div className="board">
-      {board.map((card) => {
+      {board?.map((card) => {
         const name = spriteName(card);
         return (
           <Card

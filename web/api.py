@@ -49,7 +49,10 @@ async def start(request):
         return Response(status_code=404)
 
     schema = GameSchema()
-    return JSONResponse(schema.dump(app.state.GAMES[room]))
+    return JSONResponse({
+        'type': 'start-game',
+        'payload': schema.dump(app.state.GAMES[room])
+    })
 
 
 def generate_room_id():
@@ -73,7 +76,10 @@ async def websocket_endpoint(websocket):
             game = app.state.GAMES[room]
 
             result = game.receive_set(cards)
-            await websocket.send_json(GameSchema().dump(result))
+            await websocket.send_json({
+                'type': 'set-found',
+                'payload': GameSchema().dump(result),
+            })
     except WebSocketDisconnect as e:
         if e.code == 1000:
             print(f"Disconnected with code: {e.code}")
