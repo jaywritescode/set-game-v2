@@ -2,6 +2,7 @@
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
+    "test": "wtr \"src/**/*.test.jsx\" --node-resolve",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "prettier --check \"src/**/*.{js,jsx}\""
   },
