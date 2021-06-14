@@ -25,7 +25,11 @@
     "@web/test-runner": "^0.13.3",
     "chai": "^4.3.4",
     "http2-proxy": "^5.0.53",
+    "msw": "^0.29.0",
     "prettier": "^2.2.1",
     "snowpack": "^3.3.7"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
