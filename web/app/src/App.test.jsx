@@ -8,7 +8,7 @@ import App from './App';
 describe('<App>', () => {
   before(() => {
     worker.start({
-      url: '../public/mockServiceWorker.js',
+      url: '/public/mockServiceWorker.js',
     });
   });
 
@@ -24,7 +24,10 @@ describe('<App>', () => {
     const { getByRole, findByTestId } = render(<App />);
     const createGameButton = getByRole('button', { name: 'create new game' });
 
+    worker.printHandlers();
     userEvent.click(createGameButton);
-    expect(await findByTestId('room-code')).to.contain('aaaa');
+    const roomCodeElement = await findByTestId('room-code');
+
+    expect(roomCodeElement.textContent).to.contain('aaaa');
   });
 });
