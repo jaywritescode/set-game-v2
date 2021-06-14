@@ -6,7 +6,11 @@ import worker from './mocks/browser';
 import App from './App';
 
 describe('<App>', () => {
-  before(() => worker.start());
+  before(() => {
+    worker.start({
+      url: '../public/mockServiceWorker.js',
+    });
+  });
 
   afterEach(() => {
     worker.resetHandlers();
