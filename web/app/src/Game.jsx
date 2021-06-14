@@ -32,7 +32,10 @@ const isSet = (cards) => {
 };
 
 function Game(props) {
-  const { submit, state: {board} } = props;
+  const {
+    submit,
+    state: { board },
+  } = props;
 
   // useEffect(async () => {
   //   const response = await fetch(`/api/start/${room}`);

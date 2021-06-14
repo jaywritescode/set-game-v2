@@ -49,13 +49,13 @@ export default function Room(props) {
 
   const submit = (cards) => {
     return sendJsonMessage({
-      cards
+      cards,
     });
-  }
+  };
 
   return (
     <>
-      <div data-testid='room-code'>room code: {id}</div>
+      <div data-testid="room-code">room code: {id}</div>
       <Game state={state} submit={submit} />
     </>
   );

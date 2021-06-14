@@ -8,9 +8,13 @@ import App from './App';
 describe('<App>', () => {
   before(() => worker.start());
 
-  afterEach(() => worker.resetHandlers());
+  afterEach(() => {
+    worker.resetHandlers();
+  });
 
-  after(() => worker.stop());
+  after(() => {
+    worker.stop();
+  });
 
   it('creates a new game', async () => {
     const { getByRole, findByTestId } = render(<App />);
