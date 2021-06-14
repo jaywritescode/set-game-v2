@@ -55,7 +55,7 @@ export default function Room(props) {
 
   return (
     <>
-      <div id={id}>room code: {id}</div>
+      <div data-testid='room-code'>room code: {id}</div>
       <Game state={state} submit={submit} />
     </>
   );

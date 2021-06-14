@@ -12,11 +12,11 @@ describe('<App>', () => {
 
   after(() => worker.stop());
 
-  it('creates a new game', () => {
-    const { getByRole } = render(<App />);
+  it('creates a new game', async () => {
+    const { getByRole, findByTestId } = render(<App />);
     const createGameButton = getByRole('button', { name: 'create new game' });
 
     userEvent.click(createGameButton);
-    expect(document.body.contains(createGameButton));
+    expect(await findByTestId('room-code')).to.contain('aaaa');
   });
 });
