@@ -22,7 +22,6 @@ describe('<App>', () => {
     const { getByRole, findByTestId } = render(<App />);
     const createGameButton = getByRole('button', { name: 'create new game' });
 
-    worker.printHandlers();
     userEvent.click(createGameButton);
     const roomCodeElement = await findByTestId('room-code');
 
