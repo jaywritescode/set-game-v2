@@ -5,19 +5,17 @@ import { expect } from 'chai';
 import worker from './mocks/browser';
 import App from './App';
 
-describe('<App>', () => {
-  before(() => {
-    worker.start({
-      url: '/public/mockServiceWorker.js',
-    });
-  });
+before(() => {
+  worker.start();
+});
 
+after(() => {
+  worker.stop();
+});
+
+describe('<App>', () => {
   afterEach(() => {
     worker.resetHandlers();
-  });
-
-  after(() => {
-    worker.stop();
   });
 
   it('creates a new game', async () => {
