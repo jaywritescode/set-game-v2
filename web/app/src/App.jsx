@@ -35,7 +35,8 @@ export default function App() {
     return (
       <>
         <button onClick={onCreateNewGame}>create new game</button>
-        <input type="text" id="room_code" name="room_code" placeholder="ID" />
+        <label htmlFor="room_code">Room code:</label>
+        <input type="text" id="room_code" name="room_code" />
         <button onClick={onJoinGame}>join game</button>
       </>
     );
