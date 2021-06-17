@@ -15,14 +15,34 @@ class Game:
     def start(self):
         random.shuffle(self.deck)
 
-        board, self.deck = self.deck[:12], self.deck[12:]
-        self.board = dict.fromkeys(board)
+        for _ in range(4):
+            self.deal_next()
         self.ensure_solvable()
 
+    def deal_next(self):
+        """
+        Move the top three cards from the deck to the board.
+
+        return a list of cards if successful, otherwise None
+        """
+        if not len(self.deck):
+            return None
+
+        deal, self.deck = self.deck[:3], self.deck[3:]
+        self.board.update(dict.fromkeys(deal))
+        return deal
+
     def ensure_solvable(self):
+        """
+        Deal three cards at a time until the board has at least one Set.
+
+        return True if successful, otherwise False
+        """
         while not self.has_set():
-            deal, self.deck = self.deck[:3], self.deck[3:]
-            self.board.update(dict.fromkeys(deal))
+            result = self.deal_next()
+            if not result:
+                return False
+        return True
 
     def has_set(self):
         return any(cards[0].product(cards[1]) in self.board for cards in combinations(self.board.keys(), 2))

@@ -1,6 +1,7 @@
 from game.card import Card
 from game.setgame import Game
 
+# There's no Set in this collection of 20 cards.
 cap = [Card.from_str(s) for s in [
     'one green empty diamond',
     'one green solid diamond',
@@ -23,6 +24,26 @@ cap = [Card.from_str(s) for s in [
     'three red empty ovals',
     'three red solid ovals',
 ]]
+
+
+def test_deal_next_succeeds():
+    game = Game()
+
+    result = game.deal_next()
+    assert result
+
+    result = set(result)
+    # assert that three cards were moved from the deck to the board
+    assert len(game.board.keys()) == 3
+    assert result.issubset(game.board.keys())
+    assert result.isdisjoint(game.deck)
+
+
+def test_deal_next_fails():
+    game = Game()
+    game.deck = []
+
+    assert game.deal_next() is None
 
 
 def test_ensure_solvable():
