@@ -50,11 +50,15 @@ def test_ensure_solvable():
     game = Game()
 
     for card in cap[:12]:
-        game.deck.remove(card)
-        game.board[card] = None
+        find_and_move_card(game, card)
 
     assert not game.has_set()
 
     game.ensure_solvable()
 
     assert game.has_set()
+
+
+def find_and_move_card(game, card):
+    game.deck.remove(card)
+    game.board.update(dict.fromkeys([card]))
