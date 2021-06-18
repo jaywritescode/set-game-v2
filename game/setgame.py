@@ -1,3 +1,4 @@
+import dataclasses
 from itertools import combinations, product
 from more_itertools import all_equal, all_unique, replace
 import random
@@ -61,7 +62,7 @@ class Game:
 
         Raises:
             ValueError: if one or more Cards is not on the board or 
-                the three Cards do not make a Set.
+                the three Cards do not make a Set
         """
         if not all(card in self.board for card in cards):
             raise ValueError("Invalid selection.")
@@ -76,8 +77,20 @@ class Game:
         return self
 
 
-def is_set(triplet):
-    return all(all_equal(attrs) or all_unique(attrs) for attrs in zip(triplet))
+def is_set(cards):
+    """Determines if a collection of Cards makes a Set.
+
+    Args:
+        list[Card]: a list of Cards
+
+    Returns:
+        bool: True if cards makes a Set, otherwise False
+    """
+    if len(cards) != 3:
+        return False
+
+    attrs = [dataclasses.asdict(card).values() for card in cards]
+    return all(all_equal(attr) or all_unique(attr) for attr in zip(*attrs))
 
 
 def create_deck():

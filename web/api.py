@@ -71,7 +71,6 @@ async def websocket_endpoint(websocket):
             assert room in app.state.GAMES
 
             data = await websocket.receive_json()
-
             cards = CardSchema(many=True).load(data['cards'])
             game = app.state.GAMES[room]
 

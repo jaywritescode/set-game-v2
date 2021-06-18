@@ -25,7 +25,7 @@ cap = [Card.from_str(s) for s in [
     'three red solid ovals',
 ]]
 
-"""
+
 def test_is_set():
     # all four properties different
     cards = [
@@ -67,7 +67,7 @@ def test_is_set():
     ]
     breakpoint()
     assert not is_set(cards)
-"""
+
 
 
 def test_deal_next_succeeds():
