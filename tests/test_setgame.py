@@ -1,5 +1,5 @@
 from game.card import Card
-from game.setgame import Game
+from game.setgame import Game, is_set
 
 # There's no Set in this collection of 20 cards.
 cap = [Card.from_str(s) for s in [
@@ -24,6 +24,50 @@ cap = [Card.from_str(s) for s in [
     'three red empty ovals',
     'three red solid ovals',
 ]]
+
+"""
+def test_is_set():
+    # all four properties different
+    cards = [
+        Card.from_str('one red striped diamond'),
+        Card.from_str('two green solid squiggles'),
+        Card.from_str('three blue empty ovals')
+    ]
+    assert is_set(cards)
+
+    # three different, one same
+    cards = [
+        Card.from_str('one blue solid oval'),
+        Card.from_str('two blue striped diamonds'),
+        Card.from_str('three blue empty squiggles')
+    ]
+    assert is_set(cards)
+
+    # two different, two same
+    cards = [
+        Card.from_str('two red empty ovals'),
+        Card.from_str('two blue empty diamonds'),
+        Card.from_str('two green empty squiggles')
+    ]
+    assert is_set(cards)
+
+    # one different, three same
+    cards = [
+        Card.from_str('three red solid squiggles'),
+        Card.from_str('three red solid diamonds'),
+        Card.from_str('three red solid ovals')
+    ]
+    assert is_set(cards)
+
+    # not a set
+    cards = [
+        Card.from_str('one blue solid squiggle'),
+        Card.from_str('one green solid oval'),
+        Card.from_str('two red striped diamonds')
+    ]
+    breakpoint()
+    assert not is_set(cards)
+"""
 
 
 def test_deal_next_succeeds():
@@ -54,8 +98,9 @@ def test_ensure_solvable():
 
     assert not game.has_set()
 
-    game.ensure_solvable()
+    result = game.ensure_solvable()
 
+    assert result
     assert game.has_set()
 
 

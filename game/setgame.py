@@ -20,10 +20,10 @@ class Game:
         self.ensure_solvable()
 
     def deal_next(self):
-        """
-        Move the top three cards from the deck to the board.
+        """Moves the top three cards from the deck to the board.
 
-        return a list of cards if successful, otherwise None
+        Returns:
+            list[Card]: a list of cards if successful, otherwise None
         """
         if not len(self.deck):
             return None
@@ -33,10 +33,13 @@ class Game:
         return deal
 
     def ensure_solvable(self):
-        """
-        Deal three cards at a time until the board has at least one Set.
+        """Ensures thaat the board contains a Set.
 
-        return True if successful, otherwise False
+        Deals three cards at a time until the board has at least one
+        Set.
+
+        Returns:
+            bool: True if successful, otherwise False
         """
         while not self.has_set():
             result = self.deal_next()
@@ -48,8 +51,22 @@ class Game:
         return any(cards[0].product(cards[1]) in self.board for cards in combinations(self.board.keys(), 2))
 
     def receive_set(self, cards):
-        assert all(card in self.board for card in cards)
-        assert is_set(cards)
+        """Handles a player finding a Set.
+
+        Args:
+            list[Card]: a list of three Cards
+
+        Returns:
+            self
+
+        Raises:
+            ValueError: if one or more Cards is not on the board or 
+                the three Cards do not make a Set.
+        """
+        if not all(card in self.board for card in cards):
+            raise ValueError("Invalid selection.")
+        if not is_set(cards):
+            raise ValueError("Selection is not a Set.")
 
         deal, self.deck = self.deck[:3], self.deck[3:]
         _board = replace(self.board.keys(), lambda card: card in cards, deal)
