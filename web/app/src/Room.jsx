@@ -12,6 +12,7 @@ export default function Room(props) {
 
   const initialState = {
     board: [],
+    gameOver: false,
   };
   const reducer = (state, action) => {
     switch (action.type) {
@@ -23,6 +24,7 @@ export default function Room(props) {
       case 'set-found': {
         return produce((draft) => {
           draft.board = action.payload['board'];
+          draft.gameOver = action.payload['game_over']
         })(state);
       }
       default: {
@@ -56,7 +58,8 @@ export default function Room(props) {
   return (
     <>
       <div data-testid="room-code">room code: {id}</div>
-      <Game state={state} submit={submit} />
+      <Game board={state.board} submit={submit} />
+      {state.gameOver && "game over"}
     </>
   );
 }

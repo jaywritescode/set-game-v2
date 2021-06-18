@@ -34,15 +34,8 @@ const isSet = (cards) => {
 function Game(props) {
   const {
     submit,
-    state: { board },
+    board,
   } = props;
-
-  // useEffect(async () => {
-  //   const response = await fetch(`/api/start/${room}`);
-  //   const result = await response.json();
-
-  //   handleUpdateBoard(result['board']);
-  // }, []);
 
   const [selected, setSelected] = useState([]);
   useEffect(() => {

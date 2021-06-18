@@ -10,3 +10,4 @@ CardSchema = class_schema(Card)
 
 class GameSchema(Schema):
     board = fields.List(fields.Nested(CardSchema))
+    game_over = fields.Bool()

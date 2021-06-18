@@ -12,6 +12,7 @@ class Game:
     def __init__(self):
         self.deck = create_deck()
         self.board = dict()
+        self.game_over = False
 
     def start(self):
         random.shuffle(self.deck)
@@ -73,7 +74,9 @@ class Game:
         _board = replace(self.board.keys(), lambda card: card in cards, deal)
         self.board = dict.fromkeys(_board)
 
-        self.ensure_solvable()
+        solveable = self.ensure_solvable()
+        if not solveable:
+            self.game_over = True
         return self
 
 
