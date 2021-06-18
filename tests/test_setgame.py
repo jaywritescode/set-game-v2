@@ -65,7 +65,6 @@ def test_is_set():
         Card.from_str('one green solid oval'),
         Card.from_str('two red striped diamonds')
     ]
-    breakpoint()
     assert not is_set(cards)
 
 
