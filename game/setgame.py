@@ -1,6 +1,6 @@
 import dataclasses
 from itertools import combinations, product
-from more_itertools import all_equal, all_unique, replace
+from more_itertools import all_equal, all_unique, replace, distribute, peekable
 import random
 
 from .attributes import Number, Color, Shading, Shape
@@ -51,6 +51,30 @@ class Game:
 
     def has_set(self):
         return any(cards[0].product(cards[1]) in self.board for cards in combinations(self.board.keys(), 2))
+
+    def find_all_sets(self):
+        sets = set()
+        for c in combinations(self.board.keys(), 2):
+            product = Card.product(*c)
+            if product in self.board:
+                sets.add(frozenset([*c, product]))
+
+        return sets
+
+    def find_set(self):
+        """Finds a Set on the board."""
+        partitioned = distribute(2, self.board.keys())
+        combos = [combinations(p, 2) for p in partitioned]
+        peekables = [peekable(iter(c)) for c in combos]
+
+        while all(p.peek(None) is not None for p in peekables):
+            for p in peekables:
+                if p.peek(None) is None:
+                    continue
+                pair = next(p)
+                completing_card = pair[0].product(pair[1])
+                if completing_card in self.board.keys():
+                    return {pair[0], pair[1], completing_card}
 
     def receive_set(self, cards):
         """Handles a player finding a Set.
