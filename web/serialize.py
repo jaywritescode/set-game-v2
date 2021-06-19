@@ -11,3 +11,8 @@ CardSchema = class_schema(Card)
 class GameSchema(Schema):
     board = fields.List(fields.Nested(CardSchema))
     game_over = fields.Bool()
+
+
+class PlayerSchema(Schema):
+    name = fields.String()
+    sets_found = fields.List(fields.Nested(CardSchema))
