@@ -103,6 +103,48 @@ def test_ensure_solvable():
     assert game.has_set()
 
 
+def test_find_all_sets():
+    game = Game()
+    cards = [Card.from_str(x) for x in [
+        'one green empty diamond', 'three red empty squiggles', 'three green solid ovals',
+        'three blue striped diamonds', 'three green solid squiggles', 'two blue empty ovals',
+        'two blue solid diamonds', 'two green striped ovals', 'three red empty diamonds',
+        'two blue empty squiggles', 'two red solid diamonds', 'two blue striped squiggles'
+    ]]
+    game.board = dict.fromkeys(cards)
+
+    solution = {
+        frozenset(Card.from_str(x) for x in {'one green empty diamond', 'three red empty squiggles', 'two blue empty ovals'}),
+        frozenset(Card.from_str(x) for x in {'one green empty diamond', 'three blue striped diamonds', 'two red solid diamonds'}),
+        frozenset(Card.from_str(x) for x in {'one green empty diamond', 'three green solid squiggles', 'two green striped ovals'}),
+        frozenset(Card.from_str(x) for x in {'three red empty squiggles', 'three green solid ovals', 'three blue striped diamonds'}),
+        frozenset(Card.from_str(x) for x in {'two blue empty ovals', 'two blue solid diamonds', 'two blue striped squiggles'}),
+        frozenset(Card.from_str(x) for x in {'two green striped ovals', 'two blue empty squiggles', 'two red solid diamonds'})
+    }
+    assert game.find_all_sets() == solution
+
+
+def test_find_set():
+    game = Game()
+    cards = [Card.from_str(x) for x in [
+        'one green empty diamond', 'three red empty squiggles', 'three green solid ovals',
+        'three blue striped diamonds', 'three green solid squiggles', 'two blue empty ovals',
+        'two blue solid diamonds', 'two green striped ovals', 'three red empty diamonds',
+        'two blue empty squiggles', 'two red solid diamonds', 'two blue striped squiggles'
+    ]]
+    game.board = dict.fromkeys(cards)
+
+    solution = {
+        frozenset(Card.from_str(x) for x in {'one green empty diamond', 'three red empty squiggles', 'two blue empty ovals'}),
+        frozenset(Card.from_str(x) for x in {'one green empty diamond', 'three blue striped diamonds', 'two red solid diamonds'}),
+        frozenset(Card.from_str(x) for x in {'one green empty diamond', 'three green solid squiggles', 'two green striped ovals'}),
+        frozenset(Card.from_str(x) for x in {'three red empty squiggles', 'three green solid ovals', 'three blue striped diamonds'}),
+        frozenset(Card.from_str(x) for x in {'two blue empty ovals', 'two blue solid diamonds', 'two blue striped squiggles'}),
+        frozenset(Card.from_str(x) for x in {'two green striped ovals', 'two blue empty squiggles', 'two red solid diamonds'})
+    }
+    assert game.find_set() in solution
+
+
 def find_and_move_card(game, card):
     game.deck.remove(card)
     game.board.update(dict.fromkeys([card]))
