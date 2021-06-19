@@ -14,7 +14,7 @@ const attrs = {
   shape: ['diamond', 'oval', 'squiggle'],
 };
 
-const spriteName = ({ number, color, shading, shape }) => {
+export const spriteName = ({ number, color, shading, shape }) => {
   const name = [number, color, shading, shape].join('-');
   return number == 'one' ? name : `${name}s`;
 };

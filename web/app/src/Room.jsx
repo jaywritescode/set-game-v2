@@ -3,7 +3,7 @@ import _ from 'lodash';
 import produce from 'immer';
 import useWebSocket from 'react-use-websocket';
 
-import Game from './Game';
+import Game, { spriteName } from './Game';
 
 const socketUrl = 'ws://0.0.0.0:8899/ws';
 
@@ -55,11 +55,18 @@ export default function Room(props) {
     });
   };
 
+  const findSet = async () => {
+    const response = await fetch(`http://localhost:8080/api/find/${id}`);
+    const json = await response.json();
+    console.log(json.map(spriteName));
+  }
+
   return (
     <>
       <div data-testid="room-code">room code: {id}</div>
       <Game board={state.board} submit={submit} />
       {state.gameOver && "game over"}
+      <button onClick={findSet}>find a set</button>
     </>
   );
 }

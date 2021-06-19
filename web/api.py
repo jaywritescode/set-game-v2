@@ -43,6 +43,15 @@ async def join(request):
     return JSONResponse({ 'room': room })
 
 
+async def find(request):
+    room = request.path_params['room']
+    if room not in app.state.GAMES:
+        return Response(status_code=404)
+
+    schema = CardSchema(many=True)
+    return JSONResponse(schema.dump(app.state.GAMES[room].find_set()))
+
+
 async def start(request):
     room = request.path_params['room']
     if room not in app.state.GAMES:
@@ -93,6 +102,7 @@ app = Starlette(debug=True, routes=[
     Route('/start/{room}', start),
     Route('/create', create, methods=['POST']),
     Route('/join', join),
+    Route('/find/{room}', find),
     WebSocketRoute('/ws/{room}', websocket_endpoint),
 ])
 app.state.GAMES = dict()
