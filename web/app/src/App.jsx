@@ -7,6 +7,7 @@ const ROOM_CODE_LENGTH = 4;
 
 export default function App() {
   const [room, setRoom] = useState(null);
+  const [roomCodeInput, setRoomCodeInput] = useState('');
 
   const onCreateNewGame = async () => {
     const response = await fetch('/api/create', { method: 'POST' });
@@ -27,8 +28,8 @@ export default function App() {
     }
   };
 
-  const onKeyPress = (evt) => {
-    console.log(evt);
+  const onKeyDown = (evt) => {
+    setRoomCodeInput(evt.target.value);
   };
 
   const handleEnterRoomResponse = async (response) => {
@@ -39,18 +40,25 @@ export default function App() {
   if (!room) {
     return (
       <>
-        <div class="room_entry">
+        <div className="room_entry">
           <div id="create_row" className="row">
             <button onClick={onCreateNewGame}>create new game</button>
           </div>
-          <div className="d2"> </div>
+          <div className="d2">or</div>
           <div id="join_row" className="row">
-            <button onClick={onJoinGame}>join game</button>
+            <button
+              disabled={roomCodeInput.length < ROOM_CODE_LENGTH}
+              onClick={onJoinGame}
+            >
+              join game
+            </button>
             <input
               type="text"
               id="room_code"
               name="room_code"
               placeholder="Room code"
+              onKeyUp={onKeyDown}
+              aria-label="Room Code"
             />
           </div>
         </div>

@@ -15,10 +15,7 @@ button {
 
 .d2 {
   margin-bottom: 1rem;
-}
-
-.d2::after {
-  content: 'or';
+  text-align: center;
 }
 
 #join_row {
