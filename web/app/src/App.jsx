@@ -27,6 +27,10 @@ export default function App() {
     }
   };
 
+  const onKeyPress = (evt) => {
+    console.log(evt);
+  };
+
   const handleEnterRoomResponse = async (response) => {
     const json = await response.json();
     setRoom(json.room);
@@ -39,10 +43,15 @@ export default function App() {
           <div id="create_row" className="row">
             <button onClick={onCreateNewGame}>create new game</button>
           </div>
-          <div className="d2">{" "}</div>
+          <div className="d2"> </div>
           <div id="join_row" className="row">
             <button onClick={onJoinGame}>join game</button>
-            <input type="text" id="room_code" name="room_code" placeholder="Room code"/>
+            <input
+              type="text"
+              id="room_code"
+              name="room_code"
+              placeholder="Room code"
+            />
           </div>
         </div>
       </>

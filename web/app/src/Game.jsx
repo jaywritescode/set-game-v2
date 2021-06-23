@@ -32,10 +32,7 @@ const isSet = (cards) => {
 };
 
 function Game(props) {
-  const {
-    submit,
-    board,
-  } = props;
+  const { submit, board } = props;
 
   const [selected, setSelected] = useState([]);
   useEffect(() => {

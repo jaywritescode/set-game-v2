@@ -24,7 +24,7 @@ export default function Room(props) {
       case 'set-found': {
         return produce((draft) => {
           draft.board = action.payload['board'];
-          draft.gameOver = action.payload['game_over']
+          draft.gameOver = action.payload['game_over'];
         })(state);
       }
       default: {
@@ -59,13 +59,13 @@ export default function Room(props) {
     const response = await fetch(`http://localhost:8080/api/find/${id}`);
     const json = await response.json();
     console.log(json.map(spriteName));
-  }
+  };
 
   return (
     <>
       <div data-testid="room-code">room code: {id}</div>
       <Game board={state.board} submit={submit} />
-      {state.gameOver && "game over"}
+      {state.gameOver && 'game over'}
       <button onClick={findSet}>find a set</button>
     </>
   );
