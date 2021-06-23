@@ -31,9 +31,9 @@ describe('<App>', () => {
   });
 
   it('joins a game', async () => {
-    const { getByRole, getByLabelText, findByTestId } = render(<App />);
+    const { getByRole, getByPlaceholderText, findByTestId } = render(<App />);
     const joinGameButton = getByRole('button', { name: 'join game' });
-    const roomCodeInput = getByLabelText(/room code/i, { selector: 'input' });
+    const roomCodeInput = getByPlaceholderText(/room code/i, { selector: 'input' });
 
     userEvent.type(roomCodeInput, ROOM);
     userEvent.click(joinGameButton);

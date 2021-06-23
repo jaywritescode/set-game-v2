@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Room from './Room';
+import './App.css';
 
 const ROOM_CODE_LENGTH = 4;
 
@@ -34,10 +35,16 @@ export default function App() {
   if (!room) {
     return (
       <>
-        <button onClick={onCreateNewGame}>create new game</button>
-        <label htmlFor="room_code">Room code:</label>
-        <input type="text" id="room_code" name="room_code" />
-        <button onClick={onJoinGame}>join game</button>
+        <div class="room_entry">
+          <div id="create_row" className="row">
+            <button onClick={onCreateNewGame}>create new game</button>
+          </div>
+          <div className="d2">{" "}</div>
+          <div id="join_row" className="row">
+            <button onClick={onJoinGame}>join game</button>
+            <input type="text" id="room_code" name="room_code" placeholder="Room code"/>
+          </div>
+        </div>
       </>
     );
   }
