@@ -40,18 +40,33 @@ export default function App() {
   if (!room) {
     return (
       <>
-        <div className="room_entry">
-          <div id="create_row" className="row">
-            <button onClick={onCreateNewGame}>create new game</button>
+        <div className="room-entry">
+          <div className="room-entry-row">
+            <button onClick={onCreateNewGame} style={{ width: '100%' }}>
+              create new game
+            </button>
           </div>
-          <div className="d2">or</div>
-          <div id="join_row" className="row">
+          <div
+            style={{
+              marginBottom: '1rem',
+              textAlign: 'center',
+              fontWeight: 700,
+            }}
+          >
+            or
+          </div>
+          <div className="room-entry-row">
             <button
               disabled={roomCodeInput.length < ROOM_CODE_LENGTH}
               onClick={onJoinGame}
+              style={{ flexGrow: 2 }}
             >
               join game
             </button>
+            <i
+              class="fa fa-2x fa-arrow-circle-right"
+              style={{ margin: '3px 4px', color: '#9b4dca' }}
+            />
             <input
               type="text"
               id="room_code"
@@ -59,6 +74,7 @@ export default function App() {
               placeholder="Room code"
               onKeyUp={onKeyDown}
               aria-label="Room Code"
+              style={{ width: '9em' }}
             />
           </div>
         </div>

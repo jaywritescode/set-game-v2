@@ -1,34 +1,16 @@
-.room_entry {
+#root {
+  height: 100%;
+  display: grid;
+}
+
+.room-entry {
   width: 40%;
   max-width: 360px;
-  margin: 0 auto;
+  margin: auto;
 }
 
-button {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-#create_row button {
-  width: 100%;
-}
-
-.d2 {
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-#join_row {
+.room-entry-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-#join_row > button {
-  flex-grow: 4;
-  width: 200%;
-}
-
-#join_row > input {
-  flex-grow: 1;
 }
