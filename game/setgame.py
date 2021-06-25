@@ -5,6 +5,7 @@ import random
 
 from .attributes import Number, Color, Shading, Shape
 from .card import Card
+from .player import Player
 
 
 class Game:
@@ -12,6 +13,7 @@ class Game:
     def __init__(self):
         self.deck = create_deck()
         self.board = dict()
+        self.players = list()
         self.game_over = False
 
     def start(self):
@@ -20,6 +22,9 @@ class Game:
         for _ in range(4):
             self.deal_next()
         self.ensure_solvable()
+
+    def add_player(self, player_name):
+        list.append(Player(player_name))
 
     def deal_next(self):
         """Moves the top three cards from the deck to the board.
