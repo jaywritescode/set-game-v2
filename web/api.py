@@ -44,6 +44,9 @@ async def join(request):
 
 
 async def find(request):
+    """
+    Finds a set on the board. Useful for testing.
+    """
     room = request.path_params['room']
     if room not in app.state.GAMES:
         return Response(status_code=404)
@@ -99,10 +102,11 @@ async def websocket_endpoint(websocket):
 
 app = Starlette(debug=True, routes=[
     Route('/', homepage),
-    Route('/start/{room}', start),
+    Route('/room/{room}/start', start),
     Route('/create', create, methods=['POST']),
     Route('/join', join),
-    Route('/find/{room}', find),
+    Route('/{room}/find', find),
+    # Route('/{room}/add_player', add_player, methods=['POST']),
     WebSocketRoute('/ws/{room}', websocket_endpoint),
 ])
 app.state.GAMES = dict()

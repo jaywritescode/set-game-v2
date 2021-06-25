@@ -36,7 +36,7 @@ export default function Room(props) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(async () => {
-    const response = await fetch(`/api/start/${id}`);
+    const response = await fetch(`/api/room/${id}/start`);
     const result = await response.json();
 
     dispatch(result);
@@ -56,7 +56,7 @@ export default function Room(props) {
   };
 
   const findSet = async () => {
-    const response = await fetch(`http://localhost:8080/api/find/${id}`);
+    const response = await fetch(`http://localhost:8080/api/${id}/find`);
     const json = await response.json();
     console.log(json.map(spriteName));
   };
