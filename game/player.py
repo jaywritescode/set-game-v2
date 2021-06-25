@@ -1,7 +1,12 @@
-class Player:
-  def __init__(self, name):
-    self.name = name
-    self.sets_found = list()
+import dataclasses
+from typing import List
 
-  def handle_set_found(self, cards):
-    self.sets_found.append(cards)
+from .card import Card
+
+@dataclasses.dataclass(frozen=True)
+class Player:
+    name: str
+    sets_found: List[List[Card]] = dataclasses.field(default_factory=list)
+
+    def handle_set_found(self, the_set):
+        self.sets_found.append(the_set)

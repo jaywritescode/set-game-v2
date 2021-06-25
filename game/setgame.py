@@ -24,7 +24,7 @@ class Game:
         self.ensure_solvable()
 
     def add_player(self, player_name):
-        list.append(Player(player_name))
+        self.players.append(Player(player_name))
 
     def deal_next(self):
         """Moves the top three cards from the deck to the board.

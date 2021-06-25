@@ -26,6 +26,14 @@ cap = [Card.from_str(s) for s in [
 ]]
 
 
+def test_add_player():
+    game = Game()
+    game.add_player("Sir Robin")
+    game.add_player("Tim")
+
+    assert [p.name for p in game.players] == ['Sir Robin', 'Tim']
+
+
 def test_is_set():
     # all four properties different
     cards = [
