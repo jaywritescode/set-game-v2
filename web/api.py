@@ -11,7 +11,7 @@ from starlette.websockets import WebSocketDisconnect
 
 from game.card import Card
 from game.setgame import Game
-from web.serialize import CardSchema, GameSchema
+from web.serialize import CardSchema, GameSchema, PlayerSchema
 
 ch = logging.StreamHandler()
 ch.setLevel(logging.DEBUG)
@@ -67,6 +67,26 @@ async def start(request):
     })
 
 
+async def add_player(request):
+    room = request.path_params['room']
+    if room not in app.state.GAMES:
+        return Response(status_code=404)
+
+    name = request.query_params['name']
+
+    game = app.state.GAMES[room]
+    game.add_player(name)
+
+    schema = PlayerSchema(many=True)
+    return JSONResponse({
+        'type': 'add-player',
+        'payload': {
+            'name': name,
+            'players': schema.dump(game.players)
+        }
+    })
+
+
 def generate_room_id():
     while True:
         room_id = ''.join(random.choices(string.ascii_lowercase, k=4))
@@ -105,8 +125,13 @@ app = Starlette(debug=True, routes=[
     Route('/room/{room}/start', start),
     Route('/create', create, methods=['POST']),
     Route('/join', join),
+<<<<<<< HEAD
     Route('/{room}/find', find),
     # Route('/{room}/add_player', add_player, methods=['POST']),
+=======
+    Route('/find/{room}', find),
+    Route('/{room}/add_player', add_player, methods=['POST']),
+>>>>>>> d47a985 (add player endpoint)
     WebSocketRoute('/ws/{room}', websocket_endpoint),
 ])
 app.state.GAMES = dict()

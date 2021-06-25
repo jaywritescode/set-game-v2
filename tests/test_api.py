@@ -1,5 +1,6 @@
 import pytest
 from starlette.testclient import TestClient
+from urllib.parse import quote
 
 from web.api import app
 from game.setgame import Game
@@ -43,3 +44,36 @@ def test_start_success(client):
     assert body.get("type") == "start-game"
     assert body.get("payload")
     # TODO: assert body.get('payload') matches expected schemas
+
+
+def test_add_player(client):
+    room_code = "abcd"
+    app.state.GAMES[room_code] = Game()
+
+    name = "Tim"
+    response = client.post(f"/{room_code}/add_player?name={name}")
+    body = response.json()
+
+    assert body.get("type") == "add-player"
+    players = [{
+        'name': name,
+        'sets_found': []
+    }]
+    assert body.get("payload") == {
+        'name': name,
+        'players': players
+    }
+
+    name = "Sir Robin"
+    response = client.post(f"/{room_code}/add_player?name={quote(name)}")
+    body = response.json()
+
+    assert body.get("type") == "add-player"
+    players.append({
+        'name': name,
+        'sets_found': []
+    })
+    assert body.get("payload") == {
+        'name': name,
+        'players': players
+    }
