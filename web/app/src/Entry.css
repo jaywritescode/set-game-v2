@@ -1,0 +1,11 @@
+.room-entry {
+  width: 40%;
+  max-width: 360px;
+  margin: auto;
+}
+
+.room-entry-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
