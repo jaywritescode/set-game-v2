@@ -64,7 +64,7 @@ export default function App() {
               join game
             </button>
             <i
-              class="fa fa-2x fa-arrow-circle-right"
+              className="fa fa-2x fa-arrow-circle-right"
               style={{ margin: '3px 4px', color: '#9b4dca' }}
             />
             <input
