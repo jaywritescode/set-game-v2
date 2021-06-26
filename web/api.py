@@ -122,16 +122,11 @@ async def websocket_endpoint(websocket):
 
 app = Starlette(debug=True, routes=[
     Route('/', homepage),
-    Route('/room/{room}/start', start),
+    Route('/{room}/start', start),
     Route('/create', create, methods=['POST']),
     Route('/join', join),
-<<<<<<< HEAD
-    Route('/{room}/find', find),
-    # Route('/{room}/add_player', add_player, methods=['POST']),
-=======
     Route('/find/{room}', find),
     Route('/{room}/add_player', add_player, methods=['POST']),
->>>>>>> d47a985 (add player endpoint)
     WebSocketRoute('/ws/{room}', websocket_endpoint),
 ])
 app.state.GAMES = dict()

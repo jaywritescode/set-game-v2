@@ -36,7 +36,7 @@ export default function Room(props) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(async () => {
-    const response = await fetch(`/api/room/${id}/start`);
+    const response = await fetch(`/api/${id}/start`);
     const result = await response.json();
 
     dispatch(result);
