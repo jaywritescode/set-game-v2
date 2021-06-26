@@ -13,10 +13,12 @@ from game.card import Card
 from game.setgame import Game
 from web.serialize import CardSchema, GameSchema, PlayerSchema
 
-ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
 logger = logging.getLogger(__name__)
-logger.addHandler(ch)
+formatter = logging.Formatter('%(levelname)s: %(name)s: %(message)s')
+handler = logging.StreamHandler()
+handler.setFormatter(formatter)
+handler.setLevel(logging.DEBUG)
+logger.addHandler(handler)
 logger.setLevel(logging.DEBUG)
 
 
@@ -26,6 +28,8 @@ async def homepage(request):
 
 
 async def create(request):
+    logger.debug(f'[create] called by {request.client.host}:{request.client.port}')
+
     room = generate_room_id()
 
     game = Game()
@@ -36,6 +40,8 @@ async def create(request):
 
 
 async def join(request):
+    logger.debug(f'[join] called by {request.client.host}:{request.client.port} on room: {request.query_params["room"]}')
+
     room = request.query_params['room']
     if room not in app.state.GAMES:
         return Response(status_code=404)
@@ -56,6 +62,8 @@ async def find(request):
 
 
 async def start(request):
+    logger.debug(f'[start] called by {request.client.host}:{request.client.port} on room: {request.path_params["room"]}')
+
     room = request.path_params['room']
     if room not in app.state.GAMES:
         return Response(status_code=404)
