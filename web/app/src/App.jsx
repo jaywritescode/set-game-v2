@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Box, Container } from '@material-ui/core';
 
 import Entry from './Entry';
 import Room from './Room';
@@ -11,9 +12,12 @@ export default function App() {
   const [player, setPlayer] = useState(null);
 
   if (!room) {
-    return (<Entry setRoom={setRoom} />);
-  }
-  else if (!player) {
+    return (
+      <Container maxWidth="xs">
+        <Entry setRoom={setRoom} />
+      </Container>
+    );
+  } else if (!player) {
     return (
       <>
         <label htmlFor="player_name">Who are you?</label>

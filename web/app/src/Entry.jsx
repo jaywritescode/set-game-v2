@@ -1,23 +1,25 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { Box, Button, Divider, TextField } from '@material-ui/core';
+import { styled } from '@material-ui/core/styles';
 
-import { ROOM_CODE_LENGTH } from "./App";
+import { ROOM_CODE_LENGTH } from './App';
 import './Entry.css';
 
 export default function Entry(props) {
   const { setRoom } = props;
 
-  const [ roomCode, setRoomCode ] = useState('');
+  const [roomCode, setRoomCode] = useState('');
 
   const onCreateNewGame = async () => {
     handleEnterRoomResponse(await fetch('/api/create', { method: 'POST' }));
-  }
+  };
 
   const onJoinGame = async () => {
     if (!roomCode || roomCode.length != ROOM_CODE_LENGTH) {
       return;
     }
     handleEnterRoomResponse(await fetch(`api/join?room=${roomCode}`));
-  }
+  };
 
   const handleEnterRoomResponse = async (response) => {
     if (response.ok) {
@@ -26,56 +28,68 @@ export default function Entry(props) {
     }
   };
 
-  const createGameSection = (
-    <div className="room-entry-row">
-      <button onClick={onCreateNewGame} style={{ width: '100%' }}>
-        create new game
-      </button>
-    </div>
-  );
-
-  const onKeyDown = (evt) => {
+  const onKeyUp = (evt) => {
     setRoomCode(evt.target.value);
   };
 
-  const joinGameSection = (
-    <div className="room-entry-row">
-      <button
-        disabled={roomCode.length < ROOM_CODE_LENGTH}
-        onClick={onJoinGame}
-        style={{ flexGrow: 2 }}
-      >
-        join game
-      </button>
-      <i
-        className="fa fa-2x fa-arrow-circle-right"
-        style={{ margin: '3px 4px', color: '#9b4dca' }}
-      />
-      <input
-        type="text"
-        placeholder="Room code"
-        onKeyUp={onKeyDown}
-        aria-label="Room Code"
-        style={{ width: '9em' }}
-      />
-    </div>
-  );
-  
   return (
     <>
-      <div className="room-entry">
-        {createGameSection}
-        <div
-          style={{
-            marginBottom: '1rem',
-            textAlign: 'center',
-            fontWeight: 700,
-          }}
-        >
-          or
-        </div>
-        {joinGameSection}
-      </div>
+      <Box>
+        <Button onClick={onCreateNewGame} variant="contained" fullWidth={true}>
+          create new game
+        </Button>
+      </Box>
+
+      {React.createElement(
+        styled(Divider)({
+          border: 'none',
+          borderTop: '3px double #333',
+          color: '#333',
+          overflow: 'visible',
+          textAlign: 'center',
+          height: '5px',
+          fontWeight: 700,
+          margin: '2rem auto',
+          textTransform: 'uppercase',
+          '&::after': {
+            background: '#fff',
+            padding: '0 11px',
+            content: '"or"',
+            position: 'relative',
+            top: '-13px',
+          },
+        }),
+      )}
+
+      <Box display="flex" justifyContent="space-between">
+        <Box flexGrow={2}>
+          <Button
+            onClick={onJoinGame}
+            variant="contained"
+            disabled={roomCode.length < ROOM_CODE_LENGTH}
+            fullWidth={true}
+          >
+            join game
+          </Button>
+        </Box>
+        <i
+          className="fa fa-2x fa-arrow-circle-right"
+          style={{ margin: '3px 4px', color: '#9b4dca' }}
+        />
+        <Box>
+          <TextField
+            size="small"
+            variant="outlined"
+            label="Room code"
+            onKeyUp={onKeyUp}
+            fullWidth={true}
+            inputProps={{
+              size: 10,
+              'aria-label': 'Room Code',
+            }}
+          />
+        </Box>
+      </Box>
     </>
   );
 }
