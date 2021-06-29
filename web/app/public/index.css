@@ -1,3 +1,11 @@
+/* Global styles */
+
 body {
   height: 100vh;
+
+  font: Roboto, 'Helvetica Neue', 'Helvetica', 'Arial';
+  color: rgb(96, 108, 118);
+  font-weight: 300;
+  font-size: 1.6em;
+  line-height: 1.6;
 }

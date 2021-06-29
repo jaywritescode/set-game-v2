@@ -9,9 +9,27 @@
       content="Web site created using create-snowpack-app"
     />
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin 
     />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" 
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
+      media="print"
+      onload="this.media='all'" 
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
+      />
+    </noscript>
     <link rel="stylesheet" href="index.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/ficons@1.1.52/dist/ficons/font.css"

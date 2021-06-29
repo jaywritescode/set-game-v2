@@ -4,7 +4,6 @@ import { Container } from '@material-ui/core';
 import EnterRoom from './EnterRoom';
 import GetPlayerName from './GetPlayerName';
 import Room from './Room';
-import './App.css';
 
 export const ROOM_CODE_LENGTH = 4;
 
