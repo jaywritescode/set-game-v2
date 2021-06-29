@@ -3,9 +3,8 @@ import { Box, Button, Divider, TextField } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 
 import { ROOM_CODE_LENGTH } from './App';
-import './Entry.css';
 
-export default function Entry(props) {
+export default function EnterRoom(props) {
   const { setRoom } = props;
 
   const [roomCode, setRoomCode] = useState('');

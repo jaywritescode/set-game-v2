@@ -52,28 +52,4 @@ def test_add_player(client):
 
     name = "Tim"
     response = client.post(f"/{room_code}/add_player?name={name}")
-    body = response.json()
-
-    assert body.get("type") == "add-player"
-    players = [{
-        'name': name,
-        'sets_found': []
-    }]
-    assert body.get("payload") == {
-        'name': name,
-        'players': players
-    }
-
-    name = "Sir Robin"
-    response = client.post(f"/{room_code}/add_player?name={quote(name)}")
-    body = response.json()
-
-    assert body.get("type") == "add-player"
-    players.append({
-        'name': name,
-        'sets_found': []
-    })
-    assert body.get("payload") == {
-        'name': name,
-        'players': players
-    }
+    assert response.json() == { 'name': name }

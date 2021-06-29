@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Container, SvgIcon, TextField } from '@material-ui/core';
-import { ArrowForward } from '@material-ui/icons';
+import { Container } from '@material-ui/core';
 
-import Entry from './Entry';
+import EnterRoom from './EnterRoom';
+import GetPlayerName from './GetPlayerName';
 import Room from './Room';
 import './App.css';
 
@@ -12,22 +12,15 @@ export default function App() {
   const [room, setRoom] = useState(null);
   const [player, setPlayer] = useState(null);
 
-  if (!room) {
+  const ready = room && player;
+
+  if (!ready) {
     return (
       <Container maxWidth="xs">
-        <Entry setRoom={setRoom} />
+        {!room ? <EnterRoom setRoom={setRoom} /> : <GetPlayerName room={room} setPlayer={setPlayer} />}
       </Container>
-    );
-  } else if (!player) {
-    return (
-      <>
-        <Container maxWidth="xs">
-          <TextField id="player-name" label="Who are you?" />
-          <Button variant="contained" endIcon={<ArrowForward/>}>OK</Button>
-        </Container>
-      </>
-    );
+    )
   }
 
-  return <Room id={room} />;
+  return <Room id={room} player={player} />;
 }
