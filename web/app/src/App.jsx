@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Container } from '@material-ui/core';
+import { Button, Container, SvgIcon, TextField } from '@material-ui/core';
+import { ArrowForward } from '@material-ui/icons';
 
 import Entry from './Entry';
 import Room from './Room';
@@ -20,9 +21,10 @@ export default function App() {
   } else if (!player) {
     return (
       <>
-        <label htmlFor="player_name">Who are you?</label>
-        <input type="text" name="player_name" />
-        <button>OK</button>
+        <Container maxWidth="xs">
+          <TextField id="player-name" label="Who are you?" />
+          <Button variant="contained" endIcon={<ArrowForward/>}>OK</Button>
+        </Container>
       </>
     );
   }
