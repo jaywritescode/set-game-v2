@@ -38,7 +38,7 @@ def test_start_success(client):
     response = client.post("/create")
     room_code = response.json().get("room")
 
-    response = client.get(f"/start/{room_code}")
+    response = client.get(f"/{room_code}/start")
     body = response.json()
 
     assert body.get("type") == "start-game"
