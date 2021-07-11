@@ -5,9 +5,13 @@ import { expect } from 'chai';
 import App from './App';
 
 describe('<App>', () => {
-  it('renders create new game button', () => {
-    const { getByRole } = render(<App />);
-    getByRole('button', { name: /create new game/i });
+  describe('create game button', () => {
+    it('requests a new game', () => {
+      const { getByRole } = render(<App />);
+      const createButton = getByRole('button', { name: /create new game/i });
+
+      userEvent.click(createGameButton);
+    });
   });
 
   describe('join game button', () => {
