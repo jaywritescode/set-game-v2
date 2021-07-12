@@ -1,16 +1,28 @@
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { expect } from 'chai';
+import { rest, setupWorker } from 'msw';
 import App from './App';
 
+const worker = window.worker = setupWorker(
+  rest.post('/api/create', (req, res, ctx) => {
+    return res(ctx.json({ room: 'abcd' }));
+  }),
+);
+
 describe('<App>', () => {
+  before(async function() {
+    await worker.start();
+  });
+
   describe('create game button', () => {
-    it('requests a new game', () => {
-      const { getByRole } = render(<App />);
+    it('requests a new game', async () => {
+      const { getByRole, findByLabelText } = render(<App />);
       const createButton = getByRole('button', { name: /create new game/i });
 
-      userEvent.click(createGameButton);
+      act(() => userEvent.click(createButton));
+      await findByLabelText(/who are you/i);
     });
   });
 

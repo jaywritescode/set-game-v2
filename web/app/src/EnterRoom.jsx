@@ -10,7 +10,8 @@ export default function EnterRoom(props) {
   const [roomCode, setRoomCode] = useState('');
 
   const onCreateNewGame = async () => {
-    handleEnterRoomResponse(await fetch('/api/create', { method: 'POST' }));
+    const response = await fetch('/api/create', { method: 'POST' });
+    await handleEnterRoomResponse(response);
   };
 
   const onJoinGame = async () => {

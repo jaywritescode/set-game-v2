@@ -22,7 +22,7 @@ export default function GetPlayerName(props) {
 
   return (
     <Box>
-      <TextField id="player-name" label="Who are you?" onKeyUp={onKeyUp} />
+      <TextField id="player-name" autoFocus={true} name="player-name" label="Who are you?" onKeyUp={onKeyUp} />
       <Button 
         variant="contained" 
         endIcon={<ArrowForward/>}
