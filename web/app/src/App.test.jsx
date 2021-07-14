@@ -9,11 +9,16 @@ const worker = window.worker = setupWorker(
   rest.post('/api/create', (req, res, ctx) => {
     return res(ctx.json({ room: 'abcd' }));
   }),
+
+  rest.get('/api/join', (req, res, ctx) => {
+    return res(ctx.json({ room: 'abcd' }));
+  }),
 );
 
 describe('<App>', () => {
-  before(async function() {
-    await worker.start();
+  before(function(done) {
+    worker.start()
+      .then(() => setTimeout(done, 1000));
   });
 
   describe('create game button', () => {
@@ -33,12 +38,15 @@ describe('<App>', () => {
       expect(joinButton.disabled).to.be.ok;
     });
 
-    it('is enabled with a valid room code', () => {
-      const { getByRole } = render(<App />);
+    it('is enabled with a valid room code', async () => {
+      const { getByRole, findByLabelText } = render(<App />);
       const joinButton = getByRole('button', { name: /join game/i });
 
       userEvent.type(getByRole('textbox', { name: /room code/i }), 'abcd');
       expect(joinButton.disabled).to.be.false;
+
+      act(() => userEvent.click(joinButton));
+      await findByLabelText(/who are you/i);
     });
   });
 });
