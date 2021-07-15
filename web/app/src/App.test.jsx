@@ -11,7 +11,7 @@ const worker = window.worker = setupWorker(
   }),
 
   rest.get('/api/join', (req, res, ctx) => {
-    return res(ctx.json({ room: 'abcd' }));
+    return res(ctx.json({ room: req.url.searchParams.get('room') }));    
   }),
 );
 
