@@ -1,6 +1,7 @@
 import pytest
 from starlette.testclient import TestClient
 from urllib.parse import quote
+import uuid
 
 from web.api import app
 from game.setgame import Game
@@ -52,4 +53,11 @@ def test_add_player(client):
 
     name = "Tim"
     response = client.post(f"/{room_code}/add_player?name={name}")
-    assert response.json() == { 'name': name }
+    body = response.json()
+
+    assert body.get("type") == "add-player"
+    assert isinstance(body.get("payload"), list)
+
+    payload = body.get("payload")[0]
+    assert payload.get("name") == name
+    assert uuid.UUID(payload.get("uuid"))

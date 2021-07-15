@@ -86,7 +86,10 @@ async def add_player(request):
     game.add_player(name)
 
     schema = PlayerSchema(many=True)
-    return JSONResponse({ 'name': name })
+    return JSONResponse({
+        'type': 'add-player',
+        'payload': schema.dump(game.players)
+    })
 
 
 def generate_room_id():
