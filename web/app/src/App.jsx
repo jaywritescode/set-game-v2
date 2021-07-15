@@ -16,9 +16,13 @@ export default function App() {
   if (!ready) {
     return (
       <Container maxWidth="xs">
-        {!room ? <EnterRoom setRoom={setRoom} /> : <GetPlayerName room={room} setPlayer={setPlayer} />}
+        {!room ? (
+          <EnterRoom setRoom={setRoom} />
+        ) : (
+          <GetPlayerName room={room} setPlayer={setPlayer} />
+        )}
       </Container>
-    )
+    );
   }
 
   return <Room id={room} player={player} />;

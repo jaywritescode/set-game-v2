@@ -5,20 +5,19 @@ import { expect } from 'chai';
 import { rest, setupWorker } from 'msw';
 import App from './App';
 
-const worker = window.worker = setupWorker(
+const worker = (window.worker = setupWorker(
   rest.post('/api/create', (req, res, ctx) => {
     return res(ctx.json({ room: 'abcd' }));
   }),
 
   rest.get('/api/join', (req, res, ctx) => {
-    return res(ctx.json({ room: req.url.searchParams.get('room') }));    
+    return res(ctx.json({ room: req.url.searchParams.get('room') }));
   }),
-);
+));
 
 describe('<App>', () => {
-  before(function(done) {
-    worker.start()
-      .then(() => setTimeout(done, 1000));
+  before(function (done) {
+    worker.start().then(() => setTimeout(done, 1000));
   });
 
   describe('create game button', () => {

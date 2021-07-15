@@ -9,28 +9,36 @@ export default function GetPlayerName(props) {
 
   const onKeyUp = (evt) => {
     setName(evt.target.value);
-  }
+  };
 
   const onClick = async () => {
-    const response = await fetch(`/api/${room}/add_player?name=${name}`, { method: 'POST' });
+    const response = await fetch(`/api/${room}/add_player?name=${name}`, {
+      method: 'POST',
+    });
 
     if (response.ok) {
-        const json = await response.json();
-        setPlayer(json.name);
+      const json = await response.json();
+      setPlayer(json.name);
     }
-  }
+  };
 
   return (
     <Box>
-      <TextField id="player-name" autoFocus={true} name="player-name" label="Who are you?" onKeyUp={onKeyUp} />
-      <Button 
-        variant="contained" 
-        endIcon={<ArrowForward/>}
+      <TextField
+        id="player-name"
+        autoFocus={true}
+        name="player-name"
+        label="Who are you?"
+        onKeyUp={onKeyUp}
+      />
+      <Button
+        variant="contained"
+        endIcon={<ArrowForward />}
         disabled={!name.length}
         onClick={onClick}
       >
         OK
       </Button>
     </Box>
-  )
+  );
 }
