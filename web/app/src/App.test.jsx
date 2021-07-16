@@ -33,7 +33,7 @@ describe('<App>', () => {
       const createButton = getByRole('button', { name: /create new game/i });
 
       act(() => userEvent.click(createButton));
-      const nameInput = await findByLabelText(/who are you/i);
+      await findByLabelText(/who are you/i);
     });
   });
 
