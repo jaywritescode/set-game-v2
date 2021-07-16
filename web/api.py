@@ -79,17 +79,15 @@ async def add_player(request):
     room = request.path_params['room']
     if room not in app.state.GAMES:
         return Response(status_code=404)
+    game = app.state.GAMES[room]
 
     name = request.query_params['name']
+    nanoid = request.query_params['id']
 
-    game = app.state.GAMES[room]
-    game.add_player(name)
+    game.add_player(name, nanoid)
 
     schema = PlayerSchema(many=True)
-    return JSONResponse({
-        'type': 'add-player',
-        'payload': schema.dump(game.players)
-    })
+    return JSONResponse({ 'name': name, 'id': nanoid })
 
 
 def generate_room_id():

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container } from '@material-ui/core';
+import _ from 'lodash';
 
 import EnterRoom from './EnterRoom';
 import GetPlayerName from './GetPlayerName';
@@ -9,9 +10,9 @@ export const ROOM_CODE_LENGTH = 4;
 
 export default function App() {
   const [room, setRoom] = useState(null);
-  const [player, setPlayer] = useState(null);
+  const [player, setPlayer] = useState({});
 
-  const ready = room && player;
+  const ready = room && !_.isEmpty(player);
 
   if (!ready) {
     return (

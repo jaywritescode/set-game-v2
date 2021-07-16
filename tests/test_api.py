@@ -52,12 +52,8 @@ def test_add_player(client):
     app.state.GAMES[room_code] = Game()
 
     name = "Tim"
-    response = client.post(f"/{room_code}/add_player?name={name}")
-    body = response.json()
+    nanoid = "y9UVrqr4qZ7Eh_IMzjmqS"
+    response = client.post(f"/{room_code}/add_player?name={name}&id={nanoid}")
 
-    assert body.get("type") == "add-player"
-    assert isinstance(body.get("payload"), list)
-
-    payload = body.get("payload")[0]
-    assert payload.get("name") == name
-    assert uuid.UUID(payload.get("uuid"))
+    assert len(app.state.GAMES[room_code].players) == 1
+    assert response.json() == { 'name': name, 'id': nanoid }

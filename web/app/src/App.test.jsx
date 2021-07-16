@@ -13,6 +13,13 @@ const worker = (window.worker = setupWorker(
   rest.get('/api/join', (req, res, ctx) => {
     return res(ctx.json({ room: req.url.searchParams.get('room') }));
   }),
+
+  rest.post('/api/*/add_player', (req, res, ctx) => {
+    return res(ctx.json({
+      name: req.url.searchParams.get('name'),
+      id: req.url.searchParams.get('id')
+    }));
+  })
 ));
 
 describe('<App>', () => {
@@ -26,7 +33,7 @@ describe('<App>', () => {
       const createButton = getByRole('button', { name: /create new game/i });
 
       act(() => userEvent.click(createButton));
-      await findByLabelText(/who are you/i);
+      const nameInput = await findByLabelText(/who are you/i);
     });
   });
 

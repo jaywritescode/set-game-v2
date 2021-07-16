@@ -23,8 +23,8 @@ class Game:
             self.deal_next()
         self.ensure_solvable()
 
-    def add_player(self, player_name):
-        self.players.append(Player(player_name))
+    def add_player(self, name, nanoid):
+        self.players.append(Player(name, nanoid))
 
     def deal_next(self):
         """Moves the top three cards from the deck to the board.

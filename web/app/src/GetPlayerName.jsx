@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField } from '@material-ui/core';
 import { ArrowForward } from '@material-ui/icons';
+import { nanoid } from 'nanoid';
 
 export default function GetPlayerName(props) {
   const { setPlayer, room } = props;
@@ -12,13 +13,18 @@ export default function GetPlayerName(props) {
   };
 
   const onClick = async () => {
-    const response = await fetch(`/api/${room}/add_player?name=${name}`, {
+    const id = nanoid();
+    const response = await fetch(`/api/${room}/add_player?name=${name}&id=${id}`, {
       method: 'POST',
     });
 
     if (response.ok) {
       const json = await response.json();
-      setPlayer(json.name);
+      const { response_name: name, response_id: id } = json;
+
+      if (response_name == name && response_id == id) {
+        setPlayer({ name, id });
+      }
     }
   };
 
