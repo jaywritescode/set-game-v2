@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import _ from 'lodash';
 import produce from 'immer';
 import useWebSocket from 'react-use-websocket';
@@ -8,23 +8,31 @@ import Game, { spriteName } from './Game';
 const socketUrl = 'ws://0.0.0.0:8899/ws';
 
 export default function Room(props) {
-  const { id } = props;
+  const { id, player } = props;
 
   const initialState = {
     board: [],
     gameOver: false,
+    players: [],
   };
   const reducer = (state, action) => {
+    const { payload } = action;
+
     switch (action.type) {
       case 'start-game': {
         return produce((draft) => {
-          draft.board = action.payload['board'];
+          const { board, players } = payload;
+
+          draft.board = board;
+          draft.players = players;
         })(state);
       }
       case 'set-found': {
         return produce((draft) => {
-          draft.board = action.payload['board'];
-          draft.gameOver = action.payload['game_over'];
+          const { board, game_over } = payload;
+
+          draft.board = board;
+          draft.gameOver = game_over;
         })(state);
       }
       default: {
@@ -64,6 +72,11 @@ export default function Room(props) {
   return (
     <>
       <div data-testid="room-code">room code: {id}</div>
+      <ul>
+        {state.players.map(({ name, id, }) => (
+          <li key={id}>{name} {id == player.id && "(you)"}</li>
+        ))}
+      </ul>
       <Game board={state.board} submit={submit} />
       {state.gameOver && 'game over'}
       <button onClick={findSet}>find a set</button>

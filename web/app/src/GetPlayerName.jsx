@@ -20,9 +20,7 @@ export default function GetPlayerName(props) {
 
     if (response.ok) {
       const json = await response.json();
-      const { response_name: name, response_id: id } = json;
-
-      if (response_name == name && response_id == id) {
+      if (json.name == name && json.id == id) {
         setPlayer({ name, id });
       }
     }
